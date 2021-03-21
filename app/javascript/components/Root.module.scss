@@ -1,0 +1,62 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  width: 320px;
+}
+
+.navbar {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.rootContainer {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #fafafa;
+  hr {
+    margin-right: 20px;
+  }
+}
+
+.sideBarContainer {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #eeeeee;
+}
+
+.sideBarLink {
+  border-top: 1px solid grey;
+  font-size: 13px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.sideBarLink:hover {
+  cursor: pointer;
+  border-top: 1px solid grey;
+  font-size: 13px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-decoration: underline;
+}
+
+.sideBarMainContainer {
+  display: flex;
+}
+
+.sideBarTitle {
+  display: flex;
+  justify-content: center;
+
+  font-size: 18px;
+}

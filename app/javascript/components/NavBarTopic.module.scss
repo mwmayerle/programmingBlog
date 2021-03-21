@@ -1,0 +1,53 @@
+.navBarAnchor, button {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.navBarAnchor:hover {
+  background-color: #e3e3e3;
+}
+
+.navBarIcon {
+  height: 28px;
+  width: 28px;
+  margin-right: 8px;
+}
+
+.navBarIcon:hover, img:hover {
+  background-color: #e3e3e3;
+}
+
+.navbarLi, li{
+  list-style: none;
+  background-color: #eeeeee;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  a {
+    color: #303030;
+    text-decoration: none;
+  }
+}
+
+.navbarLi:hover, li:hover {
+  list-style: none;
+  background-color: #e3e3e3;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  a {
+    color: #303030;
+    text-decoration: none;
+  }
+  button {
+    background-color: #e3e3e3;
+  }
+}

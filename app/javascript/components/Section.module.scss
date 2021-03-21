@@ -1,0 +1,164 @@
+.completed {
+  background-color: #142026;
+  border-radius: 10px;
+  font-family: 'Courier New';
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  outline: none;
+  padding: 16px;
+  resize: none;
+  white-space: pre;
+}
+
+.completedMarkdown {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.editSectionButtons {
+  display: inline-flex;
+  button {
+    background-color: crimson;
+    border-radius: 5px;
+    color: white;
+    margin-left: 24px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+.fakeList {
+  background: none !important;
+  list-style-type: disc !important;
+  margin-top: -16px;
+  margin-bottom: -16px;
+  margin-left: 10px;
+  text-indent: -8px;
+}
+
+.fakeList:hover {
+  background: none !important;
+  list-style-type: disc !important;
+  margin-top: -16px;
+  margin-bottom: -16px;
+  margin-left: 10px;
+  text-indent: -8px;
+}
+
+.formPostSection {
+  select {
+    padding: 4px;
+    font-size: 16px;
+  }
+}
+
+.formRow {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  input {
+    font-size: 16px;
+    width: 90%;
+    padding: 8px;
+    margin-left: 20px;
+  }
+  label {
+    width: 90%;
+    padding: 8px;
+  }
+}
+
+.javascriptPreviewBox, .rubyPreviewBox, .htmlPreviewBox, .cssPreviewBox {
+  background-color: #142026;
+  border-radius: 10px;
+  font-family: 'Courier New';
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  outline: none;
+  padding: 16px;
+  resize: none;
+  white-space: pre;
+}
+
+.markdownPreviewBox {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  border-radius: 10px;
+  font: inherit;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  outline: none;
+  padding: 8px;
+  resize: none;
+}
+// https://github.com/trongthanh/vscode-boxythemekit/blob/master/themes/Boxy%20Ocean%20dimmed.json
+.ruby, .javascript, .postgresql, .jsx, .html, .css {
+  textarea {
+    background-color: #142026;
+    color: white;
+  }
+}
+
+// Markdown Only
+.inlineCode {
+  font-family: 'courier';
+  color: #f44336;
+  background-color: #efefef;
+}
+
+// Shared
+.blue {
+  color: #6699CC;
+}
+
+.gray {
+  color: #65737e;
+  font-style: italic;
+}
+
+.green {
+  color: #99C794;
+}
+
+.orange {
+  color: #F99157;
+}
+
+.purple {
+  color: #C594C5;
+}
+
+.red {
+  color: #F07178;
+  font-style: italic;
+}
+
+.redPlain {
+  color: #F07178;
+}
+
+.sun {
+  color: #FAC863;
+}
+
+.teal {
+  color: #5FB3B3;
+}
+
+.wine {
+  color: #EC5F67;
+}
+
+.white {
+  color: #FAFAFA;
+}

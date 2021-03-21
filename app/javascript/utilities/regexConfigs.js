@@ -1,0 +1,105 @@
+export const cssConfig = {
+  beforeColon: /^\s*(\w|\-|\d)*[^:]/,
+  comment: /^\/\/.*/,
+  insideBrackets: /^[^{'"]\s*(\w|\-|\d)+?:|^:/,
+  heading: /^\s*(\.|#|@|\w).+\{/,
+  hexColors: /^#((\w|\d){6}|(\w|\d){3})/,
+  pound: /^#/,
+  purpleWord: /^\s*(\.|#|@)\w+/,
+  selectorBeginning: /^\s*(\.|#|@)/,
+  redWord: /^\s*(&|\w)+/,
+  untilSemicolon: /^[^:](\s*\w*|\-|!|\d)+[^;]/,
+  withSemicolon: /^[^:](\s*(\d|\-|!|%|\w)*;)/,
+}
+
+export const javascriptConfig = {
+  argsUntilClosingParen: /.*?\)\s*(?:\{|=>)/,
+  arrow: /^=>/,
+  blueWords: /^(\w+\(|\w+\()/, // must be after keywords, otherwise it'll flag words like 'function' or 'if'
+  capitalLetter: /^\s*[^a-z]*[A-Z]\w+/,
+  capitalLetterPeriod: /^\s*[^a-z]*[A-Z]\w+\./,
+  charactersInParens: /^(.+\))/,
+  comment: /^\/\/.*/,
+  constLetVar: /^const\s|let\s|var\s/,
+  functionKeyword: /function\s*/,
+  functionWithArgs: /^((function)(\s|\w)*\(.*?\)|^(\(.*?\)) =>)/,
+  keywordsOrange: /^(true|false|JSON|null|undefined|Math)/,
+  keywordsPurple: /^\s*(constructor|function\s|import\s|break|case|switch|export\s|const\s|let\s|return|if|else|async|await|try|catch|debugger|default\s|var\s|from|class|while|for)\b/, //why did default look like (\sdefault|:)
+  keywordsRedItalics: /^(\s*this|\s*super|\s*arguments)/,
+  keywordsTeal:/^(\s*typeof|new)/,
+  htmlTagTextSpace: /^\s*(\w|!|-|\.)+/,
+  insideInterpolation: /^(\$\{.*?\})/,
+  interpolation: /^(`.*?`)/,
+  interpolationUntilDollarBrackets: /^(.*?\$\{)/,
+  interpolationWithDollarAndBrackets: /^(.*?\$\{.*\})/,
+  interpolationUntilDollarBracketsWithExtraCharacter: /^(.*?\$\{[^`].)/,
+  interpolationUntilEnd: /^(.*?`)/,
+  jsxHtmlClosing: /^\s*<\/([a-z])(\s*?|.*?)>/,
+  jsxHtmlOpening: /^\s*<[^\/|A-Z|\s]\w+/,
+  multilineCommentStart: /^\s*\/\*/,
+  multilineCommentEnd: /\*\//,
+  objectLiteral: /^[^{'"]\s*\w+?:|^:/,
+  reactComponentOpening: /^\s*<[^\/\sa-z][A-Z]*\w*/,
+  reactComponentClosing: /^\s*<\/([A-Z]\s*|.*|\n*)>/,
+  reactFragmentOpening: /^\s*<>/,
+  reactFragmentClosing: /^\s*<\/>/,
+  withinJsxTags: /^\s*>(\s*|\w+)*</,
+  variableDeclaration: /^(const\s|let\s|var\s)\w+/,
+}
+
+export const markdownConfig = {
+  boldAndItalic: /\*{3}[^\*]+\*{3}/,
+  boldOrItalic: /\*[^\*]+\*|\*{2}[^\*]+\*{2}/,
+  h6: /^#{6}.+\n/,
+  h5: /^#{5}.+\n/,
+  h4: /^#{4}.+\n/,
+  h3: /^#{3}.+\n/,
+  h2: /^#{2}.+\n/,
+  h1: /^\#.+\n/, 
+  hyperlink: /(\[{1}.*\]{1})(\({1}.*\){1})/,
+  inlineCode: /(`.*`)/,
+  ul: /(^\*|^\+|^-)\s*([^\*|#]+)+\n/,
+}
+
+export const rubyConfig = {
+  blueWords: /^\s*\.(\w+|\!*|\?*)+/,
+  blueWordUntilDot: /^\s*\w*\!*\?*/,
+  capitalized: /^\s*[A-Z]\w*/,
+  comment: /^\s*(#[^\{].*)/,
+  def: /^\s*def\s/,
+  hashKey: /^([^{('",]\w+|\d+):|^:(\w+|\d+)/,
+  keywordsRedItalics: /^\s*(self)/,
+  keywordsBlue: /^\s*(loop|new|puts|p\s|private)/,
+  keywordsOrange: /^\s*(true|false|nil)/,
+  keywordsPurple: /^\s*(if|elsif|else|module|in|do|break|case|class|next|redo|rescue|retry|return|super|then|unless|undef|defined\?|for|ensure|BEGIN|begin|END|end|class|while|when|until|yield|alias)\b/,
+  keywordsTeal: /^\s*(and|or|not)/,
+  method: /^\s*def\s\w+/,
+  interpolationUntilPoundBrackets: /^(.*?\#\{)/,
+  interpolationWithPoundAndBrackets: /^(.*?\#\{.*\})/,
+  interpolationUntilPoundBracketsWithExtraCharacter: /^(.*?\#\{[^`].)/,
+  rubyInsideInterpolation: /^(\#\{.*?\})/,
+  rubyInterpolation: /^(".*?")/,
+  rubyInterpolationUntilEnd: /^(.*?")/,
+}
+
+export const sharedConfig = {
+  greaterThan: /^\s*>/,
+  htmlTagText: /^\s*(\w|!|-|\.)+/,
+  jsxClosingSlash: /^\s*<\//,
+  jsxProperty: /^\s*(\w|-)+=/,
+  jsxPropertyText: /^\s*(-|\w|_)+/,
+  numbers: /^\s*\d+/,
+  quotes: /^(".*?"|'.*?')/,
+  regex: /^(\/.+\/[gmiyusmxo]*)/, // imxo Ruby, gmiyu for JS flags
+  specialCharacters: /^(\s+|"|'|`|\/|\[|\]|{|}|\(|\)|,|\+|\?|=|-|\*|&|\.|\$|:|;|>|<|!|\||%|@)/,
+  wordOrSpaces: /\w+|\s*/,
+  wordOrSpacesOrNumbers: /[\w|\d]+|\s*/,
+}
+
+export const htmlConfig = {
+  brackets: /^()/,
+  comment: /^<!--.*?-->/,
+  htmlOpening: /^\s*<(!\w+|\w+)+/,
+  htmlClosing: /^\s*<\/\w+>/,
+  htmlWordsSpacesChars: /[\w|\d|"|'|`|\/|\[|\]|{|}|\(|\)|,|\+|\?|=|-|\*|&|\.|\$|:|;|!|\||%|@]+|\s*/,
+}
