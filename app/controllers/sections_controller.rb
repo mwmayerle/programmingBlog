@@ -1,4 +1,6 @@
 class SectionsController < ApplicationController
+  before_action :authorize
+
   # updates individual sections from drag and drop motions
   def update_positions
     section_data = section_params.to_h

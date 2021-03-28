@@ -7,6 +7,7 @@ import styles from './Root.module.scss';
 // import ReactDOM from 'react-dom';
 
 const Root = (props) => {
+  const [loggedIn, setLoggedIn] = useState(false)
   const [count, setCount] = useState(1)
   const [navBarTopicData, setNavBarTopicData] = useState(null)
 
@@ -28,6 +29,12 @@ const Root = (props) => {
     selectedTopicId: null,
     selectedTopicTitle: null,
     selectedTopic: null
+  })
+
+  const [showForm, setShowForm] = useState(false)
+  const [loginData, setLoginData] = useState({
+    email: null,
+    password: null
   })
 
   const getHighestPosition = () => {
@@ -81,6 +88,13 @@ const Root = (props) => {
     setSelectedPost({
       ...selectedPost,
       [event.target.id]: parseInt(event.target.value)
+    })
+  }
+
+  const handleLogInChange = (event) => {
+    setLoginData({
+      ...loginData,
+      [event.target.id]: event.target.value
     })
   }
 
@@ -187,7 +201,12 @@ const Root = (props) => {
   const getPostData = (postId) => { 
     API.get(`/posts/${postId}`).then((postData) => {
       setSelectedPost(getPostObject(postData))
-      setCount(count + 1) 
+      setSelectedTopic({
+        selectedTopicId: postData.post.topic_id,
+        selectedTopicTitle: postData.topicTitle,
+        selectedTopicPosts: postData.allTopicPosts
+      })
+      setCount(count + 1)
     })
   }
 
@@ -321,7 +340,7 @@ const Root = (props) => {
           handleInputChange={handleInputChange}
           handleSectionChange={handleSectionChange}
           handleSectionDelete={handleSectionDelete}
-          loggedIn={props.loggedIn}
+          loggedIn={loggedIn}
           navBarTopicData={navBarTopicData}
           newPost={newPost}
           relatedPostData={selectedPost.relatedPostData}
@@ -345,7 +364,7 @@ const Root = (props) => {
           <i>this.killMe();</i>
         </div>
         {navBarTopicData && (
-          // iterator 'topic' looks like [[0, 'Rails'], [1, 'sql'],...]
+          // the iterator 'topic' looks like [[0, 'Rails'], [1, 'sql'],...]
           navBarTopicData.map((topic) => 
             <NavBarTopic
               getTopicData={getTopicData}
@@ -354,6 +373,57 @@ const Root = (props) => {
               title={topic[1]}
             />
           )
+        )}
+        {loggedIn ? (
+          <li className={styles.noDot}>
+            <button onClick={() => {
+              API.logout().then(() => {
+                setShowForm(false)
+                setLoggedIn(false)
+              })
+            }}>
+              Log Out
+            </button>
+          </li>
+        ) : (
+          <li className={styles.noDot}>
+            <button onClick={() => setShowForm(!showForm)}>
+              Log In
+            </button>
+          </li>
+        )}
+        {showForm && (
+          <form>
+            <label for='email'>Email:</label>
+            <input
+              className={styles.loginInput}
+              id='email'
+              type='email'
+              name='email'
+              onChange={event => handleLogInChange(event) }
+            >
+            </input>
+            <label for='password' className={styles.labelMargin}>Password:</label>
+            <input 
+              className={styles.loginInput}
+              id='password'
+              type='password'
+              name='password'
+              onChange={event => handleLogInChange(event) }
+            >
+            </input>
+            <button onClick={(event) => {
+              event.preventDefault()
+              event.stopPropagation()
+              API.login(loginData).then((response) => {
+                setLoggedIn(response.loggedIn)
+                setLoginData( { email: null, password: null } )
+                setShowForm(false)
+              })
+            }}>
+              Plz no log in
+            </button>
+          </form>
         )}
       </ul>
     )

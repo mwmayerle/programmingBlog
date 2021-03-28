@@ -62,6 +62,25 @@ export const API = {
     return response.json()
   },
 
+  login: async function(loginData) {
+    const response = await fetch('/sign_in', {
+      method: 'POST',
+      cache: this.cache(),
+      headers: this.headers(),
+      body: JSON.stringify(loginData)
+    })
+    return response.json();
+  },
+
+  logout: async function() {
+    const response = await fetch('/sign_out', {
+      method: 'DELETE',
+      cache: this.cache(),
+      headers: this.headers()
+    })
+    return response.status;
+  },
+
   put: async function(url, postData) {
     if (postData.positionData) {
       postData.positionData.forEach((section) => {

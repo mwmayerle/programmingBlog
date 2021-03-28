@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+
+  before_action :authorize, except: [:show]
+
   def create
     Post.transaction do
       @post = Post.create!(post_params.except(:sections, :tags))
@@ -29,14 +32,17 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.eager_load(:sections, :tags).find(params[:id])
+    @post = Post.eager_load(:sections, :topic, :tags).find(params[:id])
+    @all_topic_posts = Post.where(topic_id: @post.topic_id).reverse
     @related_posts = @post.get_related_posts
 
-    render json: { 
+    render json: {
+      allTopicPosts: @all_topic_posts,
       post: @post,
       related_posts: @related_posts,
       sections: @post.sections.order(:position),
-      tags: @post.tags.pluck(:tag)
+      tags: @post.tags.pluck(:tag),
+      topicTitle: @post.topic.title.titleize,
     }
   end
 
@@ -76,7 +82,7 @@ class PostsController < ApplicationController
     @post.reload
     @related_posts = @post.get_related_posts
 
-    render json: { 
+    render json: {
       post: @post,
       related_posts: @related_posts,
       sections: @post.sections.order(:position),

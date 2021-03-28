@@ -7,5 +7,4 @@ class Topic < ApplicationRecord
   enum title: [
     "ruby", "javascript", "postgresql", "react-redux", "html-css", "design-patterns", "algorithms-math", "miscellaneous"
   ]
-
 end

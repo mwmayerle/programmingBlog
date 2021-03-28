@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
     render json: { 
       allTopicPosts: @topic.posts.reverse,
       topicId: @topic.id,
-      topicTitle: @topic.title,
+      topicTitle: @topic.title.titleize,
     }
   end
 

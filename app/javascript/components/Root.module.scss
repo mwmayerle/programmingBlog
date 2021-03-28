@@ -7,11 +7,23 @@
   width: 320px;
 }
 
+.labelMargin {
+  margin-left: 1em;
+}
+
+.loginInput {
+  margin-left: 0.33em;
+}
+
 .navbar {
   display: flex;
   margin: 0px;
   padding: 0px;
   cursor: pointer;
+}
+
+.noDot {
+  list-style: none;
 }
 
 .rootContainer {
