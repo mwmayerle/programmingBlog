@@ -6,8 +6,7 @@ class CreateSection < ActiveRecord::Migration[6.0]
       t.string   :section_type
       t.text     :body
       t.timestamps
-      t.index [:id, :position, :post_id], unique: true
     end
-
+    add_index(:post_id])
   end
 end
