@@ -5,7 +5,6 @@ import { cssConfig, htmlConfig, javascriptConfig, markdownConfig, rubyConfig, sh
 export const FormatText = {
   cssDriver: function() {
     while (this.inputText.length > 0 && this.counter < 5000) {
-      debugger
       // "heading" is a period (class), pound sign, (id), or @
       if (this.regexConfig.heading.test(this.inputText)) {
         let headingMatchText = this.inputText.match(this.regexConfig.heading)[0]
@@ -46,24 +45,18 @@ export const FormatText = {
         }
 
       } else if (this.regexConfig.comment.test(this.inputText)) {
-          const commentMatchData = this.inputText.match(this.regexConfig.comment)
-          this.insertStyledMatch('gray', commentMatchData)
+        this.insertComment()
       } else if (this.regexConfig.quotes.test(this.inputText)) {
-        const quotesMatchData = this.inputText.match(this.regexConfig.quotes)
-        this.insertQuotedMatch(quotesMatchData)
+        this.insertQuotes()
       // for #fafafafa and #fff kind of color stuff
       } else if (this.regexConfig.hexColors.test(this.inputText)) {
-        const hexColorsMatchData = this.inputText.match(this.regexConfig.hexColors)
-        this.insertStyledMatch('teal', hexColorsMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.hexColors))
         
       } else if (this.regexConfig.specialCharacters.test(this.inputText)) {
-        const specCharMatchData = this.inputText.match(this.regexConfig.specialCharacters)
-
-        this.insertStyledMatch('teal', specCharMatchData)
+        this.insertSpecialCharacters()
       // pound sign isn't in specialCharacters b/c it's shared and used for Ruby comments
       } else if (this.regexConfig.pound.test(this.inputText)) {
-        const poundMatchData = this.inputText.match(this.regexConfig.pound)
-        this.insertStyledMatch('white', poundMatchData)
+        this.insertStyledMatch('white', this.inputText.match(this.regexConfig.pound))
       
       } else if (this.regexConfig.insideBrackets.test(this.inputText)) {
         const insideBracketsMatchData = this.inputText.match(this.regexConfig.insideBrackets)
@@ -73,12 +66,10 @@ export const FormatText = {
       } else if (this.regexConfig.withSemicolon.test(this.inputText)) {
         // for whatever; that comes after the : inside brackets. The test function above includes the semicolon
         // the one below does not
-        const untilSemicolonMatchData = this.inputText.match(this.regexConfig.untilSemicolon)
-        this.insertStyledMatch('orange', untilSemicolonMatchData)
+        this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.untilSemicolon))
 
       } else if (this.regexConfig.wordOrSpaces.test(this.inputText)) {
-        const wordOrSpacesMatchData = this.inputText.match(this.regexConfig.wordOrSpaces)
-        this.insertStyledMatch('white', wordOrSpacesMatchData)
+        this.insertStyledMatch('white', this.inputText.match(this.regexConfig.wordOrSpaces))
       } else {
         this.formattedInputText.push(<span className={styles.white}>{this.inputText}</span>)
       }
@@ -90,13 +81,11 @@ export const FormatText = {
   htmlDriver: function() {
     while (this.inputText.length > 0 && this.counter < 10000) {
       if (this.regexConfig.comment.test(this.inputText)) {
-        const commentMatchData = this.inputText.match(this.regexConfig.comment)
-        this.insertStyledMatch('gray', commentMatchData)
+        this.insertComment()
 
       } else if (this.regexConfig.htmlOpening.test(this.inputText)) {
         this.withinHtmlBrackets = true
-        const lessThanMatch = this.inputText.match(/^\s*</)
-        this.insertStyledMatch('teal', lessThanMatch)
+        this.insertStyledMatch('teal', this.inputText.match(/^\s*</))
         // get all words and a space and turn it reddish-purple. In 'div className="farts"', it will return the 'div' portion
         const htmlWithSpaceMatch = this.inputText.match(/^(!\w+|\w+)\s/)
 
@@ -105,32 +94,26 @@ export const FormatText = {
           this.insertStyledMatch('wine', htmlWithSpaceMatch)
 
         } else { // plain tag like <div> w/no properties
-          const htmlNoSpace = this.inputText.match(/^\w+/)
-          this.insertStyledMatch('wine', htmlNoSpace)
+          this.insertStyledMatch('wine', this.inputText.match(/^\w+/))
           // const greaterThanMatch = this.inputText.match(this.regexConfig.greaterThan)
           // this.insertStyledMatch('teal', greaterThanMatch)
         }
 
       } else if (this.regexConfig.jsxProperty.test(this.inputText)) {
         // turn words purple ( whatever={} matches 'whatever')
-        const jsxPropertyMatch = this.inputText.match(this.regexConfig.jsxPropertyText)
-        this.insertStyledMatch('purple', jsxPropertyMatch)
+        this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.jsxPropertyText))
 
       } else if (this.regexConfig.quotes.test(this.inputText)) {
-        const quotesMatchData = this.inputText.match(this.regexConfig.quotes)
-        this.insertQuotedMatch(quotesMatchData)
+        this.insertQuotes()
 
       } else if (this.regexConfig.htmlClosing.test(this.inputText)) {
         this.withinHtmlBrackets = false
         // deal with '</'
-        const lessThanSlashMatch = this.inputText.match(this.regexConfig.jsxClosingSlash)
-        this.insertStyledMatch('teal', lessThanSlashMatch)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.jsxClosingSlash))
         // now do the words
-        const jsxPropertyMatch = this.inputText.match(this.regexConfig.htmlTagText)
-        this.insertStyledMatch('wine', jsxPropertyMatch)
+        this.insertStyledMatch('wine', this.inputText.match(this.regexConfig.htmlTagText))
 
-        const greaterThanMatch = this.inputText.match(this.regexConfig.greaterThan)
-        this.insertStyledMatch('teal', greaterThanMatch)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.greaterThan))
 
       } else if (this.regexConfig.specialCharacters.test(this.inputText)) {
         const specCharMatchData = this.inputText.match(this.regexConfig.specialCharacters)
@@ -140,11 +123,10 @@ export const FormatText = {
         this.insertStyledMatch('teal', specCharMatchData)
 
       } else if (this.regexConfig.htmlWordsSpacesChars.test(this.inputText)) {
-        const wordOrSpacesMatchData = this.inputText.match(this.regexConfig.htmlWordsSpacesChars)
         if (this.withinHtmlBrackets) {
-          this.insertStyledMatch('purple', wordOrSpacesMatchData)
+          this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.htmlWordsSpacesChars))
         } else {
-          this.insertStyledMatch('white', wordOrSpacesMatchData)
+          this.insertStyledMatch('white', this.inputText.match(this.regexConfig.htmlWordsSpacesChars))
         }
       } else {
         this.formattedInputText.push(<span className={styles.white}>{this.inputText}</span>)
@@ -155,15 +137,12 @@ export const FormatText = {
   },
 
   javascriptDriver: function() {
-    // debugger
     while (this.inputText.length > 0 && this.counter < 10000) {
       if (this.regexConfig.comment.test(this.inputText)) {
-        const commentMatchData = this.inputText.match(this.regexConfig.comment)
-        this.insertStyledMatch('gray', commentMatchData)
+        this.insertComment()
 
       } else if (this.regexConfig.multilineCommentStart.test(this.inputText)) {
-        const multilineCommentStartMatchData = this.inputText.match(this.regexConfig.multilineCommentStart)
-        this.insertStyledMatch('gray', multilineCommentStartMatchData)
+        this.insertStyledMatch('gray', this.inputText.match(this.regexConfig.multilineCommentStart))
 
         const multilineCommentEndMatchData = this.inputText.match(this.regexConfig.multilineCommentEnd)
         if (multilineCommentEndMatchData) {
@@ -174,18 +153,15 @@ export const FormatText = {
         }
 
       } else if (this.regexConfig.reactFragmentOpening.test(this.inputText)) {
-        const reactFragmentOpeningMatchData = this.inputText.match(this.regexConfig.reactFragmentOpening)
-        this.insertStyledMatch('teal', reactFragmentOpeningMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.reactFragmentOpening))
 
       } else if (this.regexConfig.reactFragmentClosing.test(this.inputText)) {
-        const reactFragmentClosingMatchData = this.inputText.match(this.regexConfig.reactFragmentClosing)
-        this.insertStyledMatch('teal', reactFragmentClosingMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.reactFragmentClosing))
 
       } else if (this.regexConfig.jsxHtmlOpening.test(this.inputText)) {
         // We have the whole opening tag (<div className='lol whateva'>)
         // Process the '<'
-        const lessThanMatch = this.inputText.match(/^\s*</)
-        this.insertStyledMatch('teal', lessThanMatch)
+        this.insertStyledMatch('teal', this.inputText.match(/^\s*</))
         // get all words and a space and turn it reddish-purple. In 'div className="farts"', it will return the 'div' portion
         const htmlWithSpaceMatch = this.inputText.match(/^\w+\s/)
 
@@ -198,40 +174,31 @@ export const FormatText = {
 
       } else if (this.regexConfig.reactComponentOpening.test(this.inputText)) {
         // Process the '<'
-        const lessThanMatch = this.inputText.match(/^\s*</)
-        this.insertStyledMatch('teal', lessThanMatch)
+        this.insertStyledMatch('teal', this.inputText.match(/^\s*</))
         const htmlWithSpaceMatch = this.inputText.match(this.regexConfig.htmlTagTextSpace)
 
         if (htmlWithSpaceMatch) {
           this.insertStyledMatch('sun', htmlWithSpaceMatch)
         } else { // plain tag like <div> w/no properties
-          const htmlNoSpace = this.inputText.match(this.regexConfig.htmlTagText)
-          this.insertStyledMatch('sun', htmlNoSpace)
+          this.insertStyledMatch('sun', this.inputText.match(this.regexConfig.htmlTagText))
         }
 
       } else if (this.regexConfig.jsxProperty.test(this.inputText)) {
         // turn words purple ( whatever={} matches 'whatever')
-        const jsxPropertyMatch = this.inputText.match(this.regexConfig.jsxPropertyText)
-        this.insertStyledMatch('purple', jsxPropertyMatch)
+        this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.jsxPropertyText))
 
       } else if (this.regexConfig.jsxHtmlClosing.test(this.inputText)) {
         // deal with '</'
-        const lessThanSlashMatch = this.inputText.match(this.regexConfig.jsxClosingSlash)
-        this.insertStyledMatch('teal', lessThanSlashMatch)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.jsxClosingSlash))
         // now do the words
-        const jsxPropertyMatch = this.inputText.match(this.regexConfig.htmlTagText)
-        this.insertStyledMatch('wine', jsxPropertyMatch)
-
+        this.insertStyledMatch('wine', this.inputText.match(this.regexConfig.htmlTagText))
         this.withinJSX = false
 
       } else if (this.regexConfig.reactComponentClosing.test(this.inputText)) {
         // deal with '</'
-        const lessThanSlashMatch = this.inputText.match(/^<\//)
-        this.insertStyledMatch('teal', lessThanSlashMatch)
+        this.insertStyledMatch('teal', this.inputText.match(/^<\//))
         // now do the words
-        const jsxPropertyMatch = this.inputText.match(/^\w+/)
-        this.insertStyledMatch('sun', jsxPropertyMatch)
-
+        this.insertStyledMatch('sun', this.inputText.match(/^\w+/))
         this.withinJSX = false
       
       } else if (this.regexConfig.withinJsxTags.test(this.inputText) && !this.withinJSX) {
@@ -241,11 +208,10 @@ export const FormatText = {
  
       } else if (this.regexConfig.variableDeclaration.test(this.inputText)) {
         // purple word
-        const constLetVarMatch = this.inputText.match(this.regexConfig.constLetVar)
-        this.insertStyledMatch('purple', constLetVarMatch)
+        this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.constLetVar))
         // make the next work blue
         const variableMatchData = this.inputText.match(/\w*/)
-        // This stupid if block is for 'for' loops so that that the 'i' isn't blue
+        // This stupid if block is for 'for' loops so that that the 'i' (let i = 0; blah blah) isn't blue
         if (variableMatchData[0].length === 1) {
           this.insertStyledMatch('white', variableMatchData)
         } else {
@@ -253,19 +219,16 @@ export const FormatText = {
         }
 
       } else if (this.regexConfig.arrow.test(this.inputText)) {
-        let arrowMatchData = this.inputText.match(this.regexConfig.arrow)
-        this.insertStyledMatch('purple', arrowMatchData)
+        this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.arrow))
 
       } else if (this.regexConfig.functionWithArgs.test(this.inputText)) {
-        let regexMatchData = this.inputText.match(this.regexConfig.functionWithArgs)
+        let functionWithArgsData = this.inputText.match(this.regexConfig.functionWithArgs)
         // remove the matched portion from matchedTextData from the beginning of this.inputText string
-        if (/function/.test(regexMatchData[0])) {
-          const functionKeywordWithSpacesMatchData = this.inputText.match(this.regexConfig.functionKeyword)
-          this.insertStyledMatch('purple', functionKeywordWithSpacesMatchData)
+        if (/function/.test(functionWithArgsData[0])) {
+          this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.functionKeyword))
         }
         // remove outer paren we know we have and make it teal
-        const openingParen = this.inputText.match(/\(/)
-        this.insertStyledMatch('teal', openingParen)
+        this.insertStyledMatch('teal', this.inputText.match(/\(/))
 
         // match all characters until the closing paren. Skip if parens are empty
         const argsUntilClosingParen = this.inputText.match(this.regexConfig.argsUntilClosingParen)
@@ -273,6 +236,7 @@ export const FormatText = {
           let argsUntilClosingParenText = argsUntilClosingParen[0]
 
           while (argsUntilClosingParenText.length > 0) {
+            // see of a comment will break this Matt
             if (this.regexConfig.regex.test(argsUntilClosingParenText)) {
               const regexMatchData = argsUntilClosingParenText.match(this.regexConfig.regex)
               this.insertStyledMatch('teal', regexMatchData)
@@ -322,40 +286,31 @@ export const FormatText = {
         }
 
       } else if (this.regexConfig.regex.test(this.inputText)) {
-        const regexMatchData = this.inputText.match(this.regexConfig.regex)
-        this.insertStyledMatch('teal', regexMatchData)
+        this.insertRegex()
 
       } else if (this.regexConfig.quotes.test(this.inputText)) {
-        const quotesMatchData = this.inputText.match(this.regexConfig.quotes)
-        this.insertQuotedMatch(quotesMatchData)
+        this.insertQuotes()
 
       } else if (this.regexConfig.interpolation.test(this.inputText)) {
-        const interpolationMatchData = this.inputText.match(this.regexConfig.interpolation)
-        this.interpolateMatchJS(interpolationMatchData, '${', "}", '`')
+        this.interpolateMatchJS(this.inputText.match(this.regexConfig.interpolation), '${', "}", '`')
 
       } else if (this.regexConfig.keywordsPurple.test(this.inputText)) {
-        const purpleMatchData = this.inputText.match(this.regexConfig.keywordsPurple)
-        this.insertStyledMatch('purple', purpleMatchData)
+        this.insertKeywordsPurple()
 
       } else if (this.regexConfig.keywordsRedItalics.test(this.inputText)) {
-        const redMatchData = this.inputText.match(this.regexConfig.keywordsRedItalics)
-        this.insertStyledMatch('red', redMatchData)
+        this.insertStyledMatch('red', this.inputText.match(this.regexConfig.keywordsRedItalics))
 
       } else if (this.regexConfig.keywordsOrange.test(this.inputText)) {
-        const orangeMatchData = this.inputText.match(this.regexConfig.keywordsOrange)
-        this.insertStyledMatch('orange', orangeMatchData)
+        this.insertKeywordsOrange()
 
       } else if (this.regexConfig.keywordsTeal.test(this.inputText)) {
-        const tealMatchData = this.inputText.match(this.regexConfig.keywordsTeal)
-        this.insertStyledMatch('teal', tealMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.keywordsTeal))
 
       } else if (this.regexConfig.blueWords.test(this.inputText)) {
-        const blueMatchData = this.inputText.match(this.regexConfig.blueWords)
-        this.insertBlueWords(blueMatchData)
+        this.insertBlueWords(this.inputText.match(this.regexConfig.blueWords))
       
       } else if (this.regexConfig.objectLiteral.test(this.inputText)) {
-        const objectLiteralMatchData = this.inputText.match(this.regexConfig.objectLiteral)
-        this.insertStyledMatch('teal', objectLiteralMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.objectLiteral))
       
       } else if (this.regexConfig.specialCharacters.test(this.inputText)) {
         const specCharMatchData = this.inputText.match(this.regexConfig.specialCharacters)
@@ -369,8 +324,7 @@ export const FormatText = {
         this.insertStyledMatch('teal', specCharMatchData)
 
       } else if (this.regexConfig.numbers.test(this.inputText)) {
-        const numbersMatchData = this.inputText.match(this.regexConfig.numbers)
-        this.insertStyledMatch('orange', numbersMatchData)
+        this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.numbers))
 
       } else if (this.regexConfig.capitalLetter.test(this.inputText)) {
         const capitalLetterMatchData = this.inputText.match(this.regexConfig.capitalLetter)
@@ -384,12 +338,10 @@ export const FormatText = {
         }
 
       } else if (this.regexConfig.wordOrSpaces.test(this.inputText)) {
-          const wordOrSpacesMatchData = this.inputText.match(this.regexConfig.wordOrSpaces)
-
           if (this.withinJSX && !this.withinJSXBrackets) {
-            this.insertStyledMatch('teal', wordOrSpacesMatchData)
+            this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.wordOrSpaces))
           } else {
-            this.insertStyledMatch('white', wordOrSpacesMatchData)
+            this.insertStyledMatch('white', this.inputText.match(this.regexConfig.wordOrSpaces))
           }
 
       } else {
@@ -571,37 +523,28 @@ export const FormatText = {
  rubyDriver: function() {
     while (this.inputText.length > 0 && this.counter < 10000) {
       if (this.regexConfig.comment.test(this.inputText)) {
-        const commentMatchData = this.inputText.match(this.regexConfig.comment)
-        this.insertStyledMatch('gray', commentMatchData)
+        this.insertComment()
 
       } else if (this.regexConfig.rubyInterpolation.test(this.inputText)) {
-        const rubyInterpolationMatchData = this.inputText.match(this.regexConfig.rubyInterpolation)
-        this.interpolateMatchRuby(rubyInterpolationMatchData, "#{", "}", '"')
+        this.interpolateMatchRuby(this.inputText.match(this.regexConfig.rubyInterpolation), "#{", "}", '"')
 
       } else if (this.regexConfig.quotes.test(this.inputText)) {
-        const quotesMatchData = this.inputText.match(this.regexConfig.quotes)
-        this.insertQuotedMatch(quotesMatchData)
+        this.insertQuotes()
         
       } else if (this.regexConfig.regex.test(this.inputText)) {
-        const regexMatchData = this.inputText.match(this.regexConfig.regex)
-        this.insertStyledMatch('teal', regexMatchData)
+        this.insertRegex()
 
       } else if (this.regexConfig.method.test(this.inputText)) {
         // make def purple and it's following space
-        const defMatchData = this.inputText.match(this.regexConfig.def)
-        this.insertStyledMatch('purple', defMatchData)
+        this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.def))
 
         // see if we have a def self.whatever and make it red b/c I like that
           if (this.regexConfig.keywordsRedItalics.test(this.inputText)) {
-          const redMatchData = this.inputText.match(this.regexConfig.keywordsRedItalics)
-          this.insertStyledMatch('red', redMatchData)
-          this.formattedInputText.push(
-            <span className={styles.teal}>{`.`}</span>
-          )
+          this.insertStyledMatch('red', this.inputText.match(this.regexConfig.keywordsRedItalics))
+          this.formattedInputText.push(<span className={styles.teal}>{`.`}</span>)
         }
         // make the actual method name blue
-        const methodNameMatchData = this.inputText.match(/\w+/)
-        this.insertStyledMatch('blue', methodNameMatchData)
+        this.insertStyledMatch('blue', this.inputText.match(/\w+/))
         // make all args orange until newline, treat special characters the same
         if (!(/^\n/).test(this.inputText)) {
           const restOfTheLineMatchData = this.inputText.match(/.+/)
@@ -613,28 +556,22 @@ export const FormatText = {
           this.inputText = oldInputText.replace(restOfTheLineMatchData, "")
         }
       } else if (this.regexConfig.capitalized.test(this.inputText)) {
-        const capitalizedMatchData = this.inputText.match(this.regexConfig.capitalized)
-        this.insertStyledMatch('sun', capitalizedMatchData)
+        this.insertStyledMatch('sun', this.inputText.match(this.regexConfig.capitalized))
 
       } else if (this.regexConfig.keywordsPurple.test(this.inputText)) {
-        const purpleMatchData = this.inputText.match(this.regexConfig.keywordsPurple)
-        this.insertStyledMatch('purple', purpleMatchData)
+        this.insertKeywordsPurple()
 
       } else if (this.regexConfig.keywordsRedItalics.test(this.inputText)) {
-        const redMatchData = this.inputText.match(this.regexConfig.keywordsRedItalics)
-        this.insertStyledMatch('red', redMatchData)
+        this.insertStyledMatch('red', this.inputText.match(this.regexConfig.keywordsRedItalics))
 
       } else if (this.regexConfig.keywordsBlue.test(this.inputText)) {
-        const blueMatchData = this.inputText.match(this.regexConfig.keywordsBlue)
-        this.insertStyledMatch('blue', blueMatchData)
+        this.insertStyledMatch('blue', this.inputText.match(this.regexConfig.keywordsBlue))
 
       } else if (this.regexConfig.keywordsOrange.test(this.inputText)) {
-        const orangeMatchData = this.inputText.match(this.regexConfig.keywordsOrange)
-        this.insertStyledMatch('orange', orangeMatchData)
+        this.insertKeywordsOrange()
 
       } else if (this.regexConfig.keywordsTeal.test(this.inputText)) {
-        const tealMatchData = this.inputText.match(this.regexConfig.keywordsTeal)
-        this.insertStyledMatch('teal', tealMatchData)
+        this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.keywordsTeal))
 
       } else if (this.regexConfig.blueWords.test(this.inputText)) {
         const blueWordUntilDotMatchData = this.inputText.match(this.regexConfig.blueWordUntilDot)
@@ -644,44 +581,32 @@ export const FormatText = {
         //process the dot
         this.insertStyledMatch('teal', this.inputText.match(/\./))
 
-        const blueWordAfterDotMatchData = this.inputText.match(this.regexConfig.blueWordUntilDot)
-        this.insertStyledMatch('blue', blueWordAfterDotMatchData)
+        this.insertStyledMatch('blue', this.inputText.match(this.regexConfig.blueWordUntilDot))
 
       } else if (this.regexConfig.hashKey.test(this.inputText)) {
         const hashKeyMatchData = this.inputText.match(this.regexConfig.hashKey)
 
         if (/^:/.test(hashKeyMatchData[0])) { // starts with colon
-          this.formattedInputText.push(
-            <span className={styles.teal}>{`:`}</span>
-          )
-          this.formattedInputText.push(
-            <span className={styles.orange}>{hashKeyMatchData[0].substr(1)}</span>
-          )
+          this.formattedInputText.push(<span className={styles.teal}>{`:`}</span>)
+          this.formattedInputText.push(<span className={styles.orange}>{hashKeyMatchData[0].substr(1)}</span>)
         } else { // ends with colon
-          this.formattedInputText.push(
-            <span className={styles.orange}>{hashKeyMatchData[0].substr(0, hashKeyMatchData[0].length - 1)}</span>
-          )
-          this.formattedInputText.push(
-            <span className={styles.teal}>{`:`}</span>
-          )
+          this.formattedInputText.push(<span className={styles.orange}>{hashKeyMatchData[0].substr(0, hashKeyMatchData[0].length - 1)}</span>)
+          this.formattedInputText.push(<span className={styles.teal}>{`:`}</span>)
         }
 
         this.inputText = this.inputText.substr(hashKeyMatchData.index + hashKeyMatchData[0].length)
 
       } else if (this.regexConfig.specialCharacters.test(this.inputText)) {
-        const specCharMatchData = this.inputText.match(this.regexConfig.specialCharacters)
-        this.insertStyledMatch('teal', specCharMatchData)
+        this.insertSpecialCharacters()
 
       } else if (this.regexConfig.numbers.test(this.inputText)) {
-        const numbersMatchData = this.inputText.match(this.regexConfig.numbers)
-        this.insertStyledMatch('orange', numbersMatchData)
+        this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.numbers))
 
       } else if (this.regexConfig.wordOrSpaces.test(this.inputText)) {
-        const wordOrSpacesMatchData = this.inputText.match(this.regexConfig.wordOrSpaces)
         if (this.methodArgs) {
-          this.insertStyledMatch('orange', wordOrSpacesMatchData)
+          this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.wordOrSpaces))
         } else {
-          this.insertStyledMatch('white', wordOrSpacesMatchData)
+          this.insertStyledMatch('white', this.inputText.match(this.regexConfig.wordOrSpaces))
         }
 
       } else {
@@ -761,6 +686,19 @@ export const FormatText = {
       </>
     )
   },
+
+  insertComment: function () {
+    this.insertStyledMatch('gray', this.inputText.match(this.regexConfig.comment))
+  },
+
+  insertKeywordsOrange: function () {
+    this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.keywordsOrange))
+  },
+
+  insertKeywordsPurple: function () {
+    this.insertStyledMatch('purple', this.inputText.match(this.regexConfig.keywordsPurple))
+  },
+
   // push the quote, the text in the middle, and the closing quote
   insertQuotedMatch: function(quotesMatchData) { // this doesn't handle quotes that are 1 character long well
     this.inputText = this.inputText.substr(quotesMatchData.index + quotesMatchData[0].length)
@@ -771,6 +709,18 @@ export const FormatText = {
         <span className={styles.teal}>{quotesMatchData[0][quotesMatchData[0].length - 1]}</span>
       </>
     )
+  },
+
+  insertQuotes: function () {
+    this.insertQuotedMatch(this.inputText.match(this.regexConfig.quotes))
+  },
+
+  insertRegex: function () {
+    this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.regex))
+  },
+
+  insertSpecialCharacters: function () {
+    this.insertStyledMatch('teal', this.inputText.match(this.regexConfig.specialCharacters))
   },
 
   interpolateMatchJS: function(matchData, beginningTwoInterpCharacters, endInterpCharacter, enclosingCharacter) {

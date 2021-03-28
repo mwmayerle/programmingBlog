@@ -24,7 +24,7 @@ export const javascriptConfig = {
   functionKeyword: /function\s*/,
   functionWithArgs: /^((function)(\s|\w)*\(.*?\)|^(\(.*?\)) =>)/,
   keywordsOrange: /^(true|false|JSON|null|undefined|Math)/,
-  keywordsPurple: /^\s*(constructor|function\s|import\s|break|case|switch|export\s|const\s|let\s|return|if|else|async|await|try|catch|debugger|default\s|var\s|from|class|while|for)\b/, //why did default look like (\sdefault|:)
+  keywordsPurple: /^\s*(constructor\b|function\b|import\b|break\b|case\b|switch\b|export\b|const\b|let\b|return\b|if\b|else\b|async\b|await\b|try\b|catch\b|debugger\b|default\b|var\b|from\b|class\b|while\b|for\b)/, //why did default look like (\sdefault|:)
   keywordsRedItalics: /^(\s*this|\s*super|\s*arguments)/,
   keywordsTeal:/^(\s*typeof|new)/,
   htmlTagTextSpace: /^\s*(\w|!|-|\.)+/,

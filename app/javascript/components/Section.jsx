@@ -22,7 +22,7 @@ const Section = props => {
           <label
             data-position={props.position}
           >
-            Section Type: Position{props.position || ''} Id:{props.id || ''}
+            Section Type:
           </label>
           <select
             defaultValue={props.type}
