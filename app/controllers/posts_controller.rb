@@ -64,6 +64,7 @@ class PostsController < ApplicationController
       Tag.remove_orphaned_tags(@post.tag_ids, new_tag_ids, @post.id)
 
       # deal with the post sections
+      edited_sections = []
       post_params[:sections].each do |section| # edit sections
         post_section = @post.sections.find { |sec| sec.id == section[:id] }
         # If the id is an insane number like a unix timestamp it's new
@@ -72,8 +73,12 @@ class PostsController < ApplicationController
         post_section.body = section[:body]
         post_section.position = section[:position]
         post_section.section_type = section[:section_type]
-        post_section.save!
+        post_section.created_at = post_section.created_at || Time.now
+        post_section.updated_at = Time.now
+      
+        edited_sections << post_section.attributes.except('id')
       end
+      Section.upsert_all(edited_sections, unique_by: [:id, :position, :post_id])
 
       #alter post attributes
       @post.update!(post_params.except(:sections, :tags))
