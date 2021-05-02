@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../components/Section.module.scss';
-import { cssConfig, htmlConfig, javascriptConfig, markdownConfig, rubyConfig, sharedConfig } from './regexConfigs'
+import { cssConfig, htmlConfig, javascriptConfig, markdownConfig, postgresqlConfig, rubyConfig, sharedConfig } from './regexConfigs'
 // SEE THE MARKDOWN SECTION AT THE BOTTOM FOR THE MOST BASIC GENERAL COMMENTS
 export const FormatText = {
   cssDriver: function() {
@@ -507,14 +507,33 @@ export const FormatText = {
     return formattedInputText
   },
 
-  // builds a hyperlink from the main MatchData object
-  createHyperlink: function(matchData) {
-    const choppedLinkText = matchData[1].substring(1, matchData[1].length - 1)
-    const linkURL = matchData[2].substring(1, matchData[2].length - 1)
-    return (
-      <a href={linkURL} target="_blank">{choppedLinkText}</a>
-    )
+  postgresqlDriver: function() {
+    while (this.inputText.length > 0 && this.counter < 10000) {
+      if (this.regexConfig.comment.test(this.inputText)) {
+        this.insertComment()
+
+      } else if (this.regexConfig.quotes.test(this.inputText)) {
+        this.insertQuotes()
+
+      } else if (this.regexConfig.keywordsPurple.test(this.inputText)) {
+        this.insertKeywordsPurple()
+
+      } else if (this.regexConfig.specialCharacters.test(this.inputText)) {
+        this.insertSpecialCharacters()
+
+      } else if (this.regexConfig.numbers.test(this.inputText)) {
+        this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.numbers))
+
+      } else if (this.regexConfig.wordOrSpaces.test(this.inputText)) {
+        this.insertStyledMatch('white', this.inputText.match(this.regexConfig.wordOrSpaces))
+
+      } else {
+        this.formattedInputText.push(<span className={styles.white}>{this.inputText}</span>)
+      }
+      this.counter += 1
+    } // while end
   },
+
   /*
     ***************************************************************************
     *************************************************************************** 
@@ -663,6 +682,18 @@ export const FormatText = {
     return this.markdownDriver(inputText)
   },
 
+  postgresql: function(inputText) {
+    this.counter = 1
+    this.formattedInputText = []
+    this.regexConfig = {
+      ...sharedConfig, 
+      ...postgresqlConfig 
+    }
+    this.inputText = inputText
+    this.postgresqlDriver()
+    return this.formattedInputText
+  },
+
   ruby: function(inputText) {
     this.counter = 1
     this.regexConfig = {
@@ -674,6 +705,15 @@ export const FormatText = {
     this.inputText = inputText
     this.rubyDriver()
     return this.formattedInputText
+  },
+
+  // builds a hyperlink from the main MatchData object
+  createHyperlink: function(matchData) {
+    const choppedLinkText = matchData[1].substring(1, matchData[1].length - 1)
+    const linkURL = matchData[2].substring(1, matchData[2].length - 1)
+    return (
+      <a href={linkURL} target="_blank">{choppedLinkText}</a>
+    )
   },
 
   insertBlueWords: function(blueMatchData) {
