@@ -196,9 +196,9 @@ export const FormatText = {
 
       } else if (this.regexConfig.reactComponentClosing.test(this.inputText)) {
         // deal with '</'
-        this.insertStyledMatch('teal', this.inputText.match(/^<\//))
+        this.insertStyledMatch('teal', this.inputText.match(/^\s*<\//))
         // now do the words
-        this.insertStyledMatch('sun', this.inputText.match(/^\w+/))
+        this.insertStyledMatch('sun', this.inputText.match(/^\s*\w+/))
         this.withinJSX = false
       
       } else if (this.regexConfig.withinJsxTags.test(this.inputText) && !this.withinJSX) {
@@ -863,7 +863,7 @@ export const FormatText = {
     // remove the matched portion from matchedTextData from the beginning of this.inputText string
     this.inputText = this.inputText.substr(matchedTextData.index + matchedTextData[0].length)
     // add formatted match w/className from matchedTextData
-    this.formattedInputText.push(<span className={styles[styleClass]}>{matchedTextData[0]}</span>)
+    this.formattedInputText.push(<span key={this.counter} className={styles[styleClass]}>{matchedTextData[0]}</span>)
   },
   // lops off the beginning of the inputted text.
   // '### Title' becomes 'Title' if the amount is 3

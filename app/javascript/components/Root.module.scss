@@ -5,6 +5,9 @@
 
   font-size: 24px;
   width: 320px;
+
+  background-color: #142026;
+  font-family: 'Courier New';
 }
 
 .labelMargin {
@@ -71,4 +74,18 @@
   justify-content: center;
 
   font-size: 18px;
+}
+
+// Shared
+.blue {
+  color: #6699CC;
+}
+
+.red {
+  color: #F07178;
+  font-style: italic;
+}
+
+.teal {
+  color: #5FB3B3;
 }

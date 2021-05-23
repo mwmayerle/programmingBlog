@@ -35,7 +35,7 @@ export const javascriptConfig = {
   interpolationUntilDollarBracketsWithExtraCharacter: /^(.*?\$\{[^`].)/,
   interpolationUntilEnd: /^(.*?`)/,
   jsxHtmlClosing: /^\s*<\/([a-z])(\s*?|.*?)>/,
-  jsxHtmlOpening: /^\s*<[^\/|A-Z|\s]\w+/,
+  jsxHtmlOpening: /^\s*<[^\/|A-Z|\s]\w*/, // was /^\s*<[^\/|A-Z|\s]\w+/, wasn't picking up single character tags
   multilineCommentStart: /^\s*\/\*/,
   multilineCommentEnd: /\*\//,
   objectLiteral: /^[^{'"]\s*\w+?:|^:/,

@@ -8,7 +8,7 @@ const Section = props => {
 
   return (
     props.editingPost ? (
-      <>
+      <div key={props.id}>
         <div 
           className={styles.formRow}
           id={props.id}
@@ -80,7 +80,7 @@ const Section = props => {
           >
           </textarea>                
         </div>
-      </>
+      </div>
     ) : (
       <div
         className={`${styles[props.type]} ${props.type === 'markdown' ? styles.completedMarkdown : styles.completed}`}

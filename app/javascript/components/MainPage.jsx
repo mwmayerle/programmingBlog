@@ -118,6 +118,7 @@ const MainPage = props => {
                     handleDragOver={props.handleDragOver}
                     handleDrop={props.handleDrop}
                     handleSectionChange={props.handleSectionChange}
+                    removeUnpersistedSectionremoveUnpersistedSection
                     updateSectionPositions={props.updateSectionPositions}
                   />
 
@@ -148,7 +149,7 @@ const MainPage = props => {
               className={styles.submitButton}
               onClick={(event) => {
                 event.stopPropagation()
-                setEditingPost(false)
+                props.stopEditingPost()
               }}
             >
               Cancel
