@@ -378,8 +378,10 @@ const Root = (props) => {
           <h1>What is this thing I have found?</h1>
           <div>
             <p>
-            <i><span className={styles.red}>this</span><span className={styles.teal}>.</span><span className={styles.blue}>killMe</span><span className={styles.teal}>(); </span>&nbsp;
-            </i> is my own personal blog/learning tool that I wrote to help me not be bad at my job and continue to learn. It summarizes various books/videos without citing them. 
+            <i style={{backgroundColor: "#142026"}}>
+              <span className={styles.red}>this</span><span className={styles.teal}>.</span><span className={styles.blue}>killMe</span><span className={styles.teal}>(); </span>
+            </i>
+              &nbsp; is my own personal blog/learning tool that I wrote to help me not be bad at my job and continue to learn. It summarizes various books/videos without citing them. 
               As an added bonus I have no academic computer science background. It is clearly a wealth of highly trusted information that you should blindly believe at face value without question.
             </p>
           </div>
