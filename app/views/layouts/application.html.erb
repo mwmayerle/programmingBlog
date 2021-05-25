@@ -4,8 +4,8 @@
     <title>ProgrammingBlog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%# https://stackoverflow.com/questions/58328026/css-and-bootstrap-not-loading-in-rails-6-app-when-deployed-to-heroku %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
