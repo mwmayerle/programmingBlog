@@ -6,7 +6,7 @@ import NavBarTopic from './NavBarTopic';
 import styles from './Root.module.scss';
 // import ReactDOM from 'react-dom';
 
-const Root = (props) => {
+const Root = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [count, setCount] = useState(1)
   const [navBarTopicData, setNavBarTopicData] = useState(null)

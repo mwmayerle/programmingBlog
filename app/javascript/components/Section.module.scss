@@ -1,3 +1,13 @@
+a { // the "!important"'s are required because of the fakeList CSS below
+  color: #5ABDAB !important;
+  text-decoration: underline !important;
+}
+
+a:visited {
+  color: #60B0A2 !important;
+  text-decoration: underline !important;
+}
+
 .completed {
   background-color: #142026;
   border-radius: 10px;

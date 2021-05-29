@@ -48,12 +48,14 @@ export const javascriptConfig = {
 }
 
 export const markdownConfig = {
-  boldAndItalic: /\*{3}[^\*]+\*{3}/,
-  boldOrItalic: /(\*|_)[^(\*|_)]+(\*|_)|(\*|_){2}[^(\*|_)]+(\*|_){2}/,
+  boldAndItalic: /(\*|_){3}[^(\*|_)]+(\*|_){3}/,
+  boldOrItalic: /^((\*|_)[^(\*|_)]+(\*|_)|(\*|_){2}[^(\*|_)]+(\*|_){2})/,
   h: /^#+.+\n/,
-  hyperlink: /(\[{1}.*\]{1})(\({1}.*\){1})/,
-  inlineCode: /(`.*?`)/,
-  ul: /(^\*|^\+|^-)\s*([^\*|#]+)+\n/,
+  hyperlink: /^\s*(\[{1}.*\]{1})(\({1}.*\){1})/,
+  inlineCode: /^`.*?`/,
+  ul: /^-\s*.+\n/,
+  ulChopper: /\w|\d|_|"|'|`|\/|\[|\]|{|}|\(|\)|,|\+|\?|=|\*|&|\.|\$|:|;|>|<|!|\||%|@/
+  // ul: /(^\*|^\+|^-)\s*([^\*|#]+)+\n/,
 }
 
 export const postgresqlConfig = {

@@ -366,6 +366,7 @@ export const FormatText = {
     // Split along newline/carriage return characterr
     // Consider using matchGroups in the future so that we don't need
     // to add back in the stupid newline character
+    let amountToChop = ''
     let splitByNewline = inputText.split(/\r?\n/)
     let matchData = []
     let choppedText = ''
@@ -373,48 +374,32 @@ export const FormatText = {
 
     const formattedInputText = splitByNewline.map((textSection, idx) => { // use lexical 'this'
       if (textSection == "") { return }
-      textSection = textSection += "\n"
-    
+      if (newLine) {
+        textSection = textSection += "\n"
+      }
       // make sure this keeps the new RegExp portion. Otherwise it
       // will type-coerce into a string and be useless for .test()
       // this.regexConfig.interpolation.test(textSection)
-      if (this.regexConfig.h6.test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h6))
-        choppedText = this.chopBeginning(matchData, 6)
+      if (this.regexConfig.h.test(textSection)) {
+        matchData = textSection.match(new RegExp(this.regexConfig.h))
+        // Get the amount of pound signs from the match
+        amountToChop = matchData[0].match(/#+/)[0].length
+        choppedText = this.chopBeginning(matchData, amountToChop)
         textSection = textSection.replace(matchData[0], "\n")
-        return (<h6>{this.markdownDriver(choppedText)}</h6>)
-
-      } else if (new RegExp(this.regexConfig.h5).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h5))
-        choppedText = this.chopBeginning(matchData, 5)
-        textSection = textSection.replace(matchData[0], "\n")
-        return (<h5>{this.markdownDriver(choppedText)}</h5>)
-
-      } else if (new RegExp(this.regexConfig.h4).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h4))
-        choppedText = this.chopBeginning(matchData, 4)
-        textSection = textSection.replace(matchData[0], "\n")
-        return (<h4>{this.markdownDriver(choppedText)}</h4>)
-
-      } else if (new RegExp(this.regexConfig.h3).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h3))
-        choppedText = this.chopBeginning(matchData, 3)
-        textSection = textSection.replace(matchData[0], "\n")
-        return (<h3>{this.markdownDriver(choppedText)}</h3>)
-
-      } else if (new RegExp(this.regexConfig.h2).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h2))
-        choppedText = this.chopBeginning(matchData, 2)
-        textSection = textSection.replace(matchData[0], "\n")
-        return (<h2>{this.markdownDriver(choppedText)}</h2>)
-          
-      } else if (new RegExp(this.regexConfig.h1).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.h1))
-        choppedText = this.chopBeginning(matchData, 1)
-        // matchedText includes a newline character we still need, so put it back here
-        textSection = textSection.replace(matchData[0], "\n")
-        return (<h1>{this.markdownDriver(choppedText)}</h1>)
-
+        switch(amountToChop) {
+          case(1):
+            return (<h1>{this.markdownDriver(choppedText)}</h1>)
+          case(2):
+            return (<h2>{this.markdownDriver(choppedText)}</h2>)
+          case(3):
+            return (<h3>{this.markdownDriver(choppedText)}</h3>)
+          case(4):
+            return (<h4>{this.markdownDriver(choppedText)}</h4>)
+          case(5):
+            return (<h5>{this.markdownDriver(choppedText)}</h5>)
+          case(6):
+            return (<h6>{this.markdownDriver(choppedText)}</h6>)
+        }
       } else if (new RegExp(this.regexConfig.boldAndItalic).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.boldAndItalic))
         choppedText = this.symmetricalChop(matchData, 3)
@@ -424,17 +409,17 @@ export const FormatText = {
 
         return (
           <>
-            {this.markdownDriver(origBeginning, false)}
+            {this.markdownDriver(origBeginning)}
               <span style={{fontWeight: 'bold', fontStyle: 'italic'}}>
-                {this.markdownDriver(choppedText, false)}
+                {this.markdownDriver(choppedText)}
               </span>
-            {this.markdownDriver(origEnd, false)}
+            {this.markdownDriver(origEnd)}
           </>
         )
       
       } else if (new RegExp(this.regexConfig.boldOrItalic).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.boldOrItalic))
-        if (/\*{2}/.test(matchData[0])) {
+        if (/(\*|_){2}/.test(matchData[0])) {
           choppedText = this.symmetricalChop(matchData, 2)
           styling = {fontWeight: 'bold'}
         } else {
@@ -480,26 +465,22 @@ export const FormatText = {
       } else if (new RegExp(this.regexConfig.ul).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.ul))
         let chopAmount = 0
-        if (matchData[0].match(new RegExp(/\w|\d/))) {
-          chopAmount = matchData[0].match(new RegExp(/\w|\d/)).index
-        } else if (chopAmount = matchData[0].match(new RegExp(/\s/))) {
-          // we want words or numbers before we try spaces
-          chopAmount = chopAmount = matchData[0].match(new RegExp(/\s/)).index
+        if (matchData[0].match(new RegExp(this.regexConfig.ulChopper))) {
+          chopAmount = matchData[0].match(this.regexConfig.ulChopper).index
+        } else if (matchData[0].match(new RegExp(/\s/))) {
+          chopAmount = matchData[0].match(new RegExp(/\s/)).index
         } else {
-          return //prevents erroring out
+          return // prevents erroring out
         }
         choppedText = this.chopBeginning(matchData, chopAmount)
-        textSection = textSection.replace(matchData[0], "\n")
-
         return (
-          <ul>
-            <li className={styles.fakeList}>
-              {this.markdownDriver(choppedText, false)}
+          <ul key={idx}>
+            <li key={`li-${idx}`} className={styles.fakeList}>
+              {this.markdownDriver(choppedText)}
             </li>
           </ul>
         )
       } else {
-        // return newLine ? (<p key={idx}>{textSection}</p>) : (<span key={idx}>{textSection}</span>)
         return <span key={idx}>{textSection}</span>
       }
 

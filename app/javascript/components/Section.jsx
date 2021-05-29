@@ -85,7 +85,7 @@ const Section = props => {
       <div
         className={`${styles[props.type]} ${props.type === 'markdown' ? styles.completedMarkdown : styles.completed}`}
         id={props.id}
-        key={props.position}
+        key={`${props.position}-${props.id}`}
       >
         {FormatText[props.type](props.body)}
       </div>

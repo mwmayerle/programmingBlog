@@ -25,7 +25,10 @@ export const API = {
       headers: this.headers(),
       body: JSON.stringify(postData),
     });
-    return response.json();
+    if (response.status === 401) {
+      location.reload()
+    }
+    return response.json()
   },
   
   deletePost: async function(url, postId) {
@@ -35,6 +38,9 @@ export const API = {
       headers: this.headers(),
       body: JSON.stringify({ post: { id: postId } }),
     });
+    if (response.status === 401) {
+      location.reload()
+    }
     return response.json();
   },
 
@@ -48,6 +54,9 @@ export const API = {
         section: { id: sectionId }
        }),
     });
+    if (response.status === 401) {
+      location.reload()
+    }
     return response.json();
   },
 
@@ -102,6 +111,9 @@ export const API = {
       headers: this.headers(),
       body: JSON.stringify(postData),
     });
+    if (response.status === 401) {
+      location.reload()
+    }
     return response.json();
   }
 }
