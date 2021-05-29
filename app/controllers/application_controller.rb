@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   def authorize
     unless logged_in?
       render json: {

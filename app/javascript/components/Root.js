@@ -4,10 +4,10 @@ import { API } from '../utilities/api.js';
 import MainPage from './MainPage';
 import NavBarTopic from './NavBarTopic';
 import styles from './Root.module.scss';
-// import ReactDOM from 'react-dom';
 
-const Root = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
+
+const Root = (props) => {
+  const [loggedIn, setLoggedIn] = useState(props.loggedIn || false)
   const [count, setCount] = useState(1)
   const [navBarTopicData, setNavBarTopicData] = useState(null)
 
