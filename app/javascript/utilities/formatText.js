@@ -462,6 +462,15 @@ export const FormatText = {
             {this.markdownDriver(origEnd, false)}
           </>
         )
+      } else if (new RegExp(this.regexConfig.hr).test(textSection)) {
+        matchData = textSection.match(new RegExp(this.regexConfig.hr))
+        choppedText = this.chopBeginning(matchData, 3)
+        return (
+          <>
+            <hr />
+            {this.markdownDriver(choppedText)}
+          </>
+        )
       } else if (new RegExp(this.regexConfig.ul).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.ul))
         let chopAmount = 0
