@@ -49,7 +49,7 @@ export const javascriptConfig = {
 
 export const markdownConfig = {
   boldAndItalic: /(\*|_){3}[^(\*|_)]+(\*|_){3}/,
-  boldOrItalic: /(\*|_)[^(\*|_)]+(\*|_)|(\*|_){2}[^(\*|_)]+(\*|_){2}/,
+  boldOrItalic: /(\*|_)[^\*_]+(\*|_)|(\*|_){2}[^\*_]+(\*|_){2}/,
   h: /^#+.+\n/,
   hr: /^(\*\*\*|---)\n/,
   hyperlink: /(\[{1}.*\]{1})(\({1}.*\){1})/,
