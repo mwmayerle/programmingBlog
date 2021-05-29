@@ -702,7 +702,7 @@ export const FormatText = {
     const choppedLinkText = matchData[1].substring(1, matchData[1].length - 1)
     const linkURL = matchData[2].substring(1, matchData[2].length - 1)
     return (
-      <a href={linkURL} target="_blank">{choppedLinkText}</a>
+      <a href={linkURL} target="_blank" rel="noopener noreferrer">{choppedLinkText}</a>
     )
   },
 
