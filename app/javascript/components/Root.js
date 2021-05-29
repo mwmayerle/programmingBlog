@@ -418,12 +418,13 @@ const Root = (props) => {
           <div>
             <h2>So what can it actually do?</h2>
             <p>
-              All posts you see will have sections that default to what I call "imitation markdown". The imitation markdown does all of the basic formatting you expect, and it can create hyperlinks.
+              All posts you see will have sections that default to what I call "watered-down imitation markdown". The imitation markdown does most of the basic formatting you expect, including creating hyperlinks and lists.
+              Some compromises were made (lists can only start with a dash) and it can misbehave sometimes, but usually it works.
               It doesn't do image uploads or anything, but this is free-tier trash I'm using so that shouldn't be surprising. The markdown algorithm is recursive for zero benefit and I don't know
               why I did that.
             </p>
             <p>
-              This block will auto-format several types of codeblock. They <i>mostly</i> will end up looking correct, but there are exceptions. They look very similar to what you would see in VS Code
+              This blog will auto-format several types of codeblock. They <i>mostly</i> will end up looking correct, but there are exceptions. They look very similar to what you would see in VS Code
               with the "Boxy Ocean (dimmed bg)" theme I blatantly ripped off. This blog will format but not run code blocks of the following:
             </p>
             <p>
@@ -440,7 +441,7 @@ const Root = (props) => {
               - Markdown
             </p>
             <p>
-              And again, I can say with confidence the end result is better than what Gitlab's code review section can do in the formatting department, although Gitlab has an order or two of magnitude more features.
+              And again, I can say with confidence the end result is better than what Gitlab's code review section can do in the formatting department (in non-markdown), although Gitlab has an order or two of magnitude more features.
               You can also click and drag post sections to reorder them, and they can be edited/deleted individually for the inevitable typo, omission of a critical word, or other mistakes that I am prone to making while writing.
             </p>
           </div>
@@ -455,7 +456,8 @@ const Root = (props) => {
           <div>
             <h2>What are your plans for this?</h2>
             <p>
-              To write something every weekday that isn't Friday and once on the weekend (lol that'll totally happen). Unfortunately now that this is mostly complete I cannot put off doing real work :(
+              To write something, patch a bug, or add a feature every weekday that isn't Friday and once on the weekend (lol that'll totally happen).
+              Unfortunately now that this is mostly complete I cannot put off doing real work :(
             </p>
             <br />
             <p>
