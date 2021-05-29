@@ -400,6 +400,24 @@ export const FormatText = {
           case(6):
             return (<h6>{this.markdownDriver(choppedText)}</h6>)
         }
+      } else if (new RegExp(this.regexConfig.ul).test(textSection)) {
+        matchData = textSection.match(new RegExp(this.regexConfig.ul))
+        let chopAmount = 0
+        if (matchData[0].match(new RegExp(this.regexConfig.ulChopper))) {
+          chopAmount = matchData[0].match(this.regexConfig.ulChopper).index
+        } else if (matchData[0].match(new RegExp(/\s/))) {
+          chopAmount = matchData[0].match(new RegExp(/\s/)).index
+        } else {
+          return // prevents erroring out
+        }
+        choppedText = this.chopBeginning(matchData, chopAmount)
+        return (
+          <ul key={idx}>
+            <li key={`li-${idx}`} className={styles.fakeList}>
+              {this.markdownDriver(choppedText)}
+            </li>
+          </ul>
+        )
       } else if (new RegExp(this.regexConfig.boldAndItalic).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.boldAndItalic))
         choppedText = this.symmetricalChop(matchData, 3)
@@ -457,24 +475,6 @@ export const FormatText = {
             <hr />
             {this.markdownDriver(choppedText)}
           </>
-        )
-      } else if (new RegExp(this.regexConfig.ul).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.ul))
-        let chopAmount = 0
-        if (matchData[0].match(new RegExp(this.regexConfig.ulChopper))) {
-          chopAmount = matchData[0].match(this.regexConfig.ulChopper).index
-        } else if (matchData[0].match(new RegExp(/\s/))) {
-          chopAmount = matchData[0].match(new RegExp(/\s/)).index
-        } else {
-          return // prevents erroring out
-        }
-        choppedText = this.chopBeginning(matchData, chopAmount)
-        return (
-          <ul key={idx}>
-            <li key={`li-${idx}`} className={styles.fakeList}>
-              {this.markdownDriver(choppedText)}
-            </li>
-          </ul>
         )
       } else if (new RegExp(this.regexConfig.inlineCode).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.inlineCode))
