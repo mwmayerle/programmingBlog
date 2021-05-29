@@ -49,15 +49,10 @@ export const javascriptConfig = {
 
 export const markdownConfig = {
   boldAndItalic: /\*{3}[^\*]+\*{3}/,
-  boldOrItalic: /\*[^\*]+\*|\*{2}[^\*]+\*{2}/,
-  h6: /^#{6}.+\n/,
-  h5: /^#{5}.+\n/,
-  h4: /^#{4}.+\n/,
-  h3: /^#{3}.+\n/,
-  h2: /^#{2}.+\n/,
-  h1: /^\#.+\n/, 
+  boldOrItalic: /(\*|_)[^(\*|_)]+(\*|_)|(\*|_){2}[^(\*|_)]+(\*|_){2}/,
+  h: /^#+.+\n/,
   hyperlink: /(\[{1}.*\]{1})(\({1}.*\){1})/,
-  inlineCode: /(`.*`)/,
+  inlineCode: /(`.*?`)/,
   ul: /(^\*|^\+|^-)\s*([^\*|#]+)+\n/,
 }
 

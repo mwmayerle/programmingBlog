@@ -227,7 +227,7 @@ const MainPage = props => {
           </>
         )}
 
-        {props.loggedIn && (
+        {!props.loggedIn && (
           <>
             <hr />
 
