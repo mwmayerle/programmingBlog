@@ -438,19 +438,6 @@ export const FormatText = {
             {this.markdownDriver(origEnd, false)}
           </>
         )
-      } else if (new RegExp(this.regexConfig.inlineCode).test(textSection)) {
-        matchData = textSection.match(new RegExp(this.regexConfig.inlineCode))
-        let origBeginning = textSection.substring(0, matchData.index)
-        let origEnd = textSection.substring(matchData.index + matchData[0].length)
-        return (
-          <>
-            {this.markdownDriver(origBeginning, false)}
-              <span className={styles.inlineCode}>
-                {this.symmetricalChop(matchData, 1)}
-              </span>
-            {this.markdownDriver(origEnd, false)}
-          </>
-        )
       } else if (new RegExp(this.regexConfig.hyperlink).test(textSection)) {
         matchData = textSection.match(new RegExp(this.regexConfig.hyperlink))
         let origBeginning = textSection.substring(0, matchData.index)
@@ -488,6 +475,19 @@ export const FormatText = {
               {this.markdownDriver(choppedText)}
             </li>
           </ul>
+        )
+      } else if (new RegExp(this.regexConfig.inlineCode).test(textSection)) {
+        matchData = textSection.match(new RegExp(this.regexConfig.inlineCode))
+        let origBeginning = textSection.substring(0, matchData.index)
+        let origEnd = textSection.substring(matchData.index + matchData[0].length)
+        return (
+          <>
+            {this.markdownDriver(origBeginning, false)}
+              <span className={styles.inlineCode}>
+                {this.symmetricalChop(matchData, 1)}
+              </span>
+            {this.markdownDriver(origEnd, false)}
+          </>
         )
       } else {
         return <span key={idx}>{textSection}</span>
