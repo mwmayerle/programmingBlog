@@ -12,7 +12,11 @@ class Post < ApplicationRecord
   end
 
   def get_related_posts
-    Post.where(id: PostTag.where(tag_id: self.tag_ids).select(:post_id)).pluck(:id, :title)
+    Post.where(
+      id: PostTag.where(tag_id: self.tag_ids)
+                 .where.not(post_id: self.id)
+                 .select(:post_id)
+    ).pluck(:id, :title)
   end
 
 end

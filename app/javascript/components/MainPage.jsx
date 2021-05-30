@@ -10,8 +10,7 @@ const MainPage = props => {
   let columnC = []
 
   if (props.relatedPostData) {// relatedPostData looks like [[id, title], [id, title]...]
-    const withoutSelf = props.relatedPostData.filter(post => post[1] !== props.postTitle)
-    const buttons = withoutSelf.map((relatedPost, index) => {
+    const buttons = props.relatedPostData.map((relatedPost, index) => {
       return (
         <button
           className={styles.relatedPostLink}
@@ -22,17 +21,13 @@ const MainPage = props => {
         </button>
       )
     })
-    // create 3 columns of links
-    const lessButtons = buttons.filter((button, index) => {
-      if (index % 3 === 0) {
-        columnC.push(button)
-      } else {
-        return button
-      }
-    })
 
-    for (let i = 0; i < lessButtons.length; i++) {
-      (i % 2 === 0) ? columnA.push(lessButtons[i]) : columnB.push(lessButtons[i])
+    for (let i = 0; i < buttons.length; i++) {
+      if (i % 2 === 0) { // 0 % 2 is 0, so we want this first
+        columnA.push(buttons[i])
+      } else {
+        (i % 3 === 0) ? columnC.push(buttons[i]) : columnB.push(buttons[i])
+      }
     }
   }
 
@@ -204,7 +199,7 @@ const MainPage = props => {
           </>
         )}
 
-        {props.relatedPostData && (
+        {props.relatedPostData && !!props.relatedPostData.length && (
           <>
             <p className={styles.relatedPostsTitle}>Related Posts</p>
             <div className={styles.relatedPostsContainer}>
@@ -224,13 +219,12 @@ const MainPage = props => {
                 </ul>
               )}
             </div>
+            <hr />
           </>
         )}
 
         {props.loggedIn && (
           <>
-            <hr />
-
             <div className={styles.bottomButtons}>
               <button
                 type="button" 
