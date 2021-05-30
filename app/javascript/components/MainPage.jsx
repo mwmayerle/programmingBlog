@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
-import Notification from './Notification'
+import React from 'react'
 import Section from './Section'
 import styles from './MainPage.module.scss';
 
@@ -35,14 +34,6 @@ const MainPage = props => {
   if (props.editingPost) {
     return (
       <div className={styles.mainContainer}>
-
-        {props.notificationData && (
-          <Notification
-            message={props.notificationData.message}
-            status={props.notificationData.status}
-          />
-        )}
-
         <form className={styles.formContainer} onSubmit={(event) => event.preventDefault()}>
           <div className={styles.formRow}>
             <label htmlFor="postTitle">
@@ -155,12 +146,6 @@ const MainPage = props => {
   } else {
     return (
       <div className={styles.mainContainer}>
-        {props.notificationData && (
-          <Notification
-            message={props.notificationData.message}
-            status={props.notificationData.status}
-          />
-        )}
         {props.postTitle && (
           <>
             <h1>{props.postTitle}</h1>

@@ -13,14 +13,17 @@ class UsersController < ApplicationController
       log_dashes
       p "Successfully logged in #{@user.email}"
       log_dashes
+      render json: { loggedIn: authorized_user? }
+    else
+      render json: { loggedIn: authorized_user? }, status: :unauthorized
     end
-    render json: { loggedIn: authorized_user? }
   end
 
   def log_out # delete
+    user_id = current_user.id
     session[:user_id] = nil
     log_dashes
-    p "#{@user.email} successfully logged out"
+    p "#{User.select(:email).find(user_id).email} successfully logged out"
     log_dashes
     head :ok
   end

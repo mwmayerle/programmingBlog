@@ -9,9 +9,8 @@ class PostsController < ApplicationController
       # Create all the Sections
       Section.create_sections_from_params(post_params[:sections], @post)
     end
-
+    
     @post.reload
-
     render json: {
       post: @post,
       related_posts: @post.get_related_posts,
@@ -22,14 +21,13 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.eager_load(:sections, :topic, :tags).find(params[:id])
-
     render json: {
       allTopicPosts: @post.get_all_topic_posts,
       post: @post,
       related_posts: @post.get_related_posts,
       sections: @post.sections.order(:position),
       tags: @post.tags.pluck(:tag),
-      topicTitle: @post.topic.title.titleize,
+      topicTitle: @post.topic.title.titleize
     }
   end
 

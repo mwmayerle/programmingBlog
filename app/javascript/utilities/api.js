@@ -14,10 +14,21 @@ export const API = {
     }
   },
 
-  post: async function(url, postData) {
-    postData.post.sections.forEach((section) => {
-      delete section.editingPost
+  createNotification: function(responseStatus, type, message) {
+    let container = document.getElementById('notificationContainer')
+    const color = (type === "success") ? 'limegreen' : 'crimson'
+    container.innerHTML = "<div style='padding-top: 0.66em;padding-bottom: 0.66em;border-left: 3px solid " + color + ";'>" + 
+      "<span style='margin-left: 1em;'>" + responseStatus + ":" + "</span>" + 
+      "<span style='margin-left: 1em;'>" + message + "</span>" + 
+      "<span id='x' style='margin-left: 3em;margin-right: 1em;cursor: pointer;'>&times;</span>" +
+    "</div>"
+    document.addEventListener('click', function() { 
+      document.getElementById('notificationContainer').innerHTML = ''
     })
+  },
+
+  post: async function(url, postData) {
+    postData.post.sections.forEach((section) => delete section.editingPost)
 
     const response = await fetch(url, {
       method: 'POST',
@@ -26,7 +37,11 @@ export const API = {
       body: JSON.stringify(postData),
     });
     if (response.status === 401) {
-      location.reload()
+      this.createNotification(response.status, 'failure', response.statusText)
+    } else if (response.status === 200) {
+      this.createNotification(response.status, 'success', 'Post created successfully')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
     }
     return response.json()
   },
@@ -39,7 +54,11 @@ export const API = {
       body: JSON.stringify({ post: { id: postId } }),
     });
     if (response.status === 401) {
-      location.reload()
+      this.createNotification(response.status, 'failure', response.statusText)
+    } else if (response.status === 200) {
+      this.createNotification(response.status, 'success', 'Post deleted')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
     }
     return response.json();
   },
@@ -55,7 +74,11 @@ export const API = {
        }),
     });
     if (response.status === 401) {
-      location.reload()
+      this.createNotification(response.status, 'failure', response.statusText)
+    } else if (response.status === 200) {
+      this.createNotification(response.status, 'success', 'Section deleted')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
     }
     return response.json();
   },
@@ -64,10 +87,11 @@ export const API = {
     const response = await fetch(url, {
       method: 'GET',
       cache: this.cache(),
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
+    if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
+    }
     return response.json()
   },
 
@@ -78,6 +102,13 @@ export const API = {
       headers: this.headers(),
       body: JSON.stringify(loginData)
     })
+    if (response.status === 401) {
+      this.createNotification(response.status, 'failure', response.statusText)
+    } else if (response.status === 200){
+      this.createNotification(response.status, 'success', 'Logged in successfully')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
+    }
     return response.json();
   },
 
@@ -87,6 +118,11 @@ export const API = {
       cache: this.cache(),
       headers: this.headers()
     })
+    if (response.status === 200){
+      this.createNotification(response.status, 'success', 'You have been logged out')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
+    }
     return response.status;
   },
 
@@ -112,7 +148,11 @@ export const API = {
       body: JSON.stringify(postData),
     });
     if (response.status === 401) {
-      location.reload()
+      this.createNotification(response.status, 'failure', response.statusText)
+    } else if (response.status === 200 || response.status === 204){
+      this.createNotification(response.status, 'success', 'Post updated successfully')
+    } else if (response.status === 422) {
+      this.createNotification(response.status, 'failure', response.statusText)
     }
     return response.json();
   }

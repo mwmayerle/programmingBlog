@@ -341,6 +341,24 @@ const Root = (props) => {
     setCount(count + 1)
   }
 
+  const wipePostData = () => {
+    setSelectedPost({
+      editingPost: false,
+      postTopicId: null,
+      selectedPostId: null,
+      selectedPostTitle: null,
+      selectedPostTags: null,
+      selectedPostSections: []
+    })
+    setSelectedTopic({
+      selectedTopicId: null,
+      selectedTopicTitle: null,
+      selectedTopic: null
+    })
+    setShowForm(false)
+    setCount(1)
+  }
+
   /* RENDERING COMPONENT FUNCTIONS */ 
   const renderMainPage = () => {
     if (selectedPost.selectedPostTitle || selectedTopic.selectedTopicId) {
@@ -383,7 +401,7 @@ const Root = (props) => {
           <div>
             <p>
             <i style={{backgroundColor: "#142026"}}>
-              <span className={styles.red}>this</span><span className={styles.teal}>.</span><span className={styles.blue}>killMe</span><span className={styles.teal}>(); </span>
+            <span className={styles.red}>this</span><span className={styles.teal}>.</span><span className={styles.blue}>killMe</span><span className={styles.teal}>(); </span>
             </i>
               &nbsp; is my own personal blog/learning tool that I wrote to help me not be bad at my job and continue to learn. It summarizes various books/videos without citing them. 
               As an added bonus I have no academic computer science background. It is clearly a wealth of highly trusted information that you should blindly believe at face value without question.
@@ -481,23 +499,7 @@ const Root = (props) => {
         <div 
           className={styles.banner}
           // Reset almost everything and go to the homepage
-          onClick={() => {
-            setSelectedPost({
-              editingPost: false,
-              postTopicId: null,
-              selectedPostId: null,
-              selectedPostTitle: null,
-              selectedPostTags: null,
-              selectedPostSections: []
-            })
-            setSelectedTopic({
-              selectedTopicId: null,
-              selectedTopicTitle: null,
-              selectedTopic: null
-            })
-            setShowForm(false)
-            setCount(1)
-          }}
+          onClick={() => wipePostData() }
           >
           <i>
             <span className={styles.red}>this</span>
@@ -530,9 +532,7 @@ const Root = (props) => {
           </li>
         ) : (
           <li className={styles.noDot}>
-            <button onClick={() => setShowForm(!showForm)}>
-              Log In
-            </button>
+            <button onClick={() => setShowForm(!showForm)}>Log In</button>
           </li>
         )}
         {showForm && (

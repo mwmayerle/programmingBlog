@@ -13,6 +13,6 @@
  *= require_tree .
  *= require_self
  */
- body {
+body {
   min-height: 100vh;
- }
+}
