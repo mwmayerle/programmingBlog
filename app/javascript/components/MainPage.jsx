@@ -130,7 +130,7 @@ const MainPage = props => {
                 !!props.postId ? props.updatePost(props) : props.createPost(props)
               }}
               type="submit"
-              value="Submit"
+              value={!!props.postId ? "Edit Post" : "Create Post"}
             />
              <button
               type="button" 

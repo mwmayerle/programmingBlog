@@ -14,8 +14,16 @@
   margin-left: 1em;
 }
 
-.loginInput {
-  margin-left: 0.33em;
+.loginForm {
+  display: inline-flex;
+  margin-left: 0.66em;
+  margin-right: 0.66em;
+  margin-top: 0.5em;
+  button, label {
+    
+    margin-left: 0.66em;
+    margin-right: 0.66em;
+  }
 }
 
 .navbar {

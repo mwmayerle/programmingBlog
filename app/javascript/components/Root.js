@@ -538,19 +538,17 @@ const Root = (props) => {
           </li>
         )}
         {showForm && (
-          <form>
+          <form className={styles.loginForm}>
             <label htmlFor='email'>Email:</label>
             <input
-              className={styles.loginInput}
               id='email'
               type='email'
               name='email'
               onChange={event => handleLogInChange(event) }
             >
             </input>
-            <label htmlFor='password' className={styles.labelMargin}>Password:</label>
+            <label htmlFor='password'>Password:</label>
             <input 
-              className={styles.loginInput}
               id='password'
               type='password'
               name='password'
@@ -566,7 +564,7 @@ const Root = (props) => {
                 setShowForm(false)
               })
             }}>
-              Plz no log in
+              Login
             </button>
           </form>
         )}
