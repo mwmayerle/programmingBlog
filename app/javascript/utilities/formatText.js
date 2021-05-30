@@ -367,16 +367,14 @@ export const FormatText = {
     // Consider using matchGroups in the future so that we don't need
     // to add back in the stupid newline character
     let amountToChop = ''
-    let splitByNewline = inputText.split(/\r?\n/)
-    let matchData = []
     let choppedText = ''
+    let matchData = []
+    let splitByNewline = inputText.split(/\r?\n/)
     let styling = ''
 
     const formattedInputText = splitByNewline.map((textSection, idx) => { // use lexical 'this'
       if (textSection == "") { return }
-      if (newLine) {
-        textSection = textSection += "\n"
-      }
+      if (newLine) { textSection = textSection += "\n" }
       // make sure this keeps the new RegExp portion. Otherwise it
       // will type-coerce into a string and be useless for .test()
       // this.regexConfig.interpolation.test(textSection)

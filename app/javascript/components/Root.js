@@ -239,10 +239,16 @@ const Root = (props) => {
     })
   }
   // updates section positions after clicking and dragging them around
+  // Will create a new post if it is not persisted yet
   const updateSectionPositions = (postSectionData) => {
     API.put('/sections', {
       // was 'postId:' on line below
-      post: { postId: selectedPost.selectedPostId },
+      post: { 
+        postId: selectedPost.selectedPostId, 
+        title: selectedPost.selectedPostTitle,
+        topic_id: selectedPost.postTopicId,
+        tags: selectedPost.selectedPostTags
+      },
       positionData: postSectionData,
     }).then((newPostSections) => {
       setSelectedPost(getPostObject(newPostSections, true))

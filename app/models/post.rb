@@ -7,6 +7,10 @@ class Post < ApplicationRecord
 
   validates_presence_of :title
 
+  def get_all_topic_posts
+    Post.where(topic_id: self.topic_id).reverse
+  end
+
   def get_related_posts
     Post.where(id: PostTag.where(tag_id: self.tag_ids).select(:post_id)).pluck(:id, :title)
   end

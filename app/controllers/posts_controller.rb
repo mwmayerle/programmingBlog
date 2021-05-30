@@ -5,26 +5,16 @@ class PostsController < ApplicationController
     Post.transaction do
       @post = Post.create!(post_params.except(:sections, :tags))
       # Create all Tags and PostTags
-      post_params[:tags].split(',').map(&:strip).each do |tag|
-        @post.tags << Tag.find_or_create_by!(tag: tag)
-      end
-
-      post_params[:sections].each do |section|
-        @post.sections << Section.create!(
-          body: section[:body],
-          section_type: section[:section_type],
-          position: section[:position],
-          post_id: @post.id
-        )
-      end
+      Tag.create_tags_from_params(post_params[:tags], @post)
+      # Create all the Sections
+      Section.create_sections_from_params(post_params[:sections], @post)
     end
 
-    @related_posts = @post.reload.get_related_posts
     @post.reload
 
     render json: {
       post: @post,
-      related_posts: @related_posts,
+      related_posts: @post.get_related_posts,
       sections: @post.sections.order(:position),
       tags: @post.tags.pluck(:tag)
     }
@@ -32,13 +22,11 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.eager_load(:sections, :topic, :tags).find(params[:id])
-    @all_topic_posts = Post.where(topic_id: @post.topic_id).reverse
-    @related_posts = @post.get_related_posts
 
     render json: {
-      allTopicPosts: @all_topic_posts,
+      allTopicPosts: @post.get_all_topic_posts,
       post: @post,
-      related_posts: @related_posts,
+      related_posts: @post.get_related_posts,
       sections: @post.sections.order(:position),
       tags: @post.tags.pluck(:tag),
       topicTitle: @post.topic.title.titleize,
@@ -100,7 +88,7 @@ class PostsController < ApplicationController
     end
 
     render json: {
-      allTopicPosts: Post.where(topic_id: @post.topic_id).reverse,
+      allTopicPosts: @post.get_all_topic_posts,
       topicTitle: Topic.find(@post.topic_id).title,
       topicId: @post.topic_id
     }

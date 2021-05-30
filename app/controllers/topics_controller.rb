@@ -4,32 +4,18 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @all_topic_posts = Post.where(topic_id: params[:id]).reverse
-    topic = Topic.find(params[:id])
-    if topic.posts.any?
-      @post = topic.posts.last
-      @related_posts = @post.get_related_posts
+    topic = Topic.includes(:posts).find(params[:id])
+    @post = topic.posts.includes(:sections, :tags).last
   
-      render json: { 
-        allTopicPosts: @all_topic_posts,
-        post: {
-          post: @post,
-          related_posts: @related_posts,
-          sections: @post.sections.order(:position),
-          tags: @post.tags.pluck(:tag)
-        }
+    render json: { 
+      allTopicPosts: @post.try(:get_all_topic_posts) || [],
+      post: {
+        post: @post || [],
+        related_posts: @post.try(:get_related_posts) || [],
+        sections: @post.try {|post| post.sections.order(:position) } || [],
+        tags: @post.try { |post| post.tags.pluck(:tag) } || []
       }
-    else
-      render json: { 
-        allTopicPosts: [],
-        post: {
-          post: [],
-          related_posts: [],
-          sections: [],
-          tags: []
-        }
-      }
-    end
+    }
   end
 
   def reload
