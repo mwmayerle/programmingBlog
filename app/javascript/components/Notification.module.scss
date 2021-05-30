@@ -1,0 +1,38 @@
+.200 {
+  padding-top: 0.66em;
+  padding-bottom: 0.66em;
+  border-left: 3px solid limegreen;
+}
+
+.500 {
+  padding-top: 0.66em;
+  padding-bottom: 0.66em;
+  border-left: 3px solid crimson;
+}
+
+.notificationContainer {
+  background-color: #eeeeee;
+  margin-top: 0.33em;
+  margin-bottom: 0.33em;
+  position: absolute;
+  right: 0.33em;
+  top: 0em;
+}
+
+.notificationText {
+  margin-left: 1em;
+}
+
+.status {
+  margin-left: 1em;
+}
+
+.times {
+  margin-left: 3em;
+  margin-right: 1em;
+  cursor: pointer;
+}
+
+.times:hover {
+  color: crimson;
+}

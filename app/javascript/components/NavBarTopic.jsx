@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 import AlgorithmsIcon from '../../assets/images/icons/algorithms.png'

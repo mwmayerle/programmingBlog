@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
+import Notification from './Notification'
 import Section from './Section'
 import styles from './MainPage.module.scss';
 
@@ -33,11 +34,16 @@ const MainPage = props => {
 
   if (props.editingPost) {
     return (
-      <div 
-        className={styles.mainContainer}
-      >
-        <form className={styles.formContainer} onSubmit={(event) => event.preventDefault()}>
+      <div className={styles.mainContainer}>
 
+        {props.notificationData && (
+          <Notification
+            message={props.notificationData.message}
+            status={props.notificationData.status}
+          />
+        )}
+
+        <form className={styles.formContainer} onSubmit={(event) => event.preventDefault()}>
           <div className={styles.formRow}>
             <label htmlFor="postTitle">
               Title:
@@ -79,14 +85,7 @@ const MainPage = props => {
             >
               {props.navBarTopicData && (
                 props.navBarTopicData.map((topic) => {
-                  return (
-                    <option
-                      key={`${topic[0]}-${topic[1]}`}
-                      value={topic[0]}
-                    >
-                      {topic[1]}
-                    </option>
-                  ) 
+                  return <option key={`${topic[0]}-${topic[1]}`} value={topic[0]}>{topic[1]}</option>
                 })
               )}
             </select>
@@ -156,21 +155,18 @@ const MainPage = props => {
   } else {
     return (
       <div className={styles.mainContainer}>
+        {props.notificationData && (
+          <Notification
+            message={props.notificationData.message}
+            status={props.notificationData.status}
+          />
+        )}
         {props.postTitle && (
           <>
-            <h1>
-              {props.postTitle}
-            </h1>
+            <h1>{props.postTitle}</h1>
             <div className={styles.tagsContainer}>
               {props.postTags && props.postTags.map((tag, index) => {
-                return (
-                  <div 
-                    className={styles.tag}
-                    key={`${tag}-${index}`}
-                  >
-                    {tag}
-                  </div>
-                )
+                return <div className={styles.tag} key={`${tag}-${index}`}>{tag}</div>
               })}
             </div>
       

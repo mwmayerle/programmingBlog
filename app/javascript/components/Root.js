@@ -279,9 +279,7 @@ const Root = (props) => {
     })
   }
 
-  useEffect(() => {
-    getNavBarData() //loads navbar when page loads
-  }, [])
+  useEffect(() => { getNavBarData() }, []) //loads navbar when page loads
 
   useEffect(() => {
     if (dragData.droppedPosition) {
