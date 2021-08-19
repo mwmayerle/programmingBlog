@@ -14,7 +14,7 @@ const MainPage = props => {
       return (
         <button
           className={styles.relatedPostLink}
-          key={`${index}-${relatedPost[0]}`}
+          key={`${index}-${relatedPost[0]}-button`}
           onClick={props.getPostData.bind(null, relatedPost[0])}
         >
           {relatedPost[1]}
@@ -151,7 +151,7 @@ const MainPage = props => {
             <h1>{props.postTitle}</h1>
             <div className={styles.tagsContainer}>
               {props.postTags && props.postTags.map((tag, index) => {
-                return <div className={styles.tag} key={`${tag}-${index}`}>{tag}</div>
+                return <div className={styles.tag} key={`${tag}-${index}-tag`}>{tag}</div>
               })}
             </div>
       
@@ -161,7 +161,7 @@ const MainPage = props => {
               props.postSections.map((postSection, index) => {
                 return (
                   <Section
-                    key={`${postSection.id}-${index}`}
+                    key={`${postSection.id}-${index}-section`}
                     body={postSection.body}
                     id={postSection.id}
                     position={postSection.position}

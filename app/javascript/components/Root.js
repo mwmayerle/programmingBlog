@@ -584,7 +584,7 @@ const Root = (props) => {
             return (
               <button
                 className={styles.sideBarLink}
-                key={index}
+                key={`${index}-sidebar`}
                 onClick={getPostData.bind(null, post.id)}
               >
                 {post.title}
@@ -599,7 +599,7 @@ const Root = (props) => {
   return (
     <div className={styles.rootContainer}>
       {renderNavBar()}
-      <div key={count} className={styles.sideBarMainContainer}>
+      <div key={`${count}-sidebar`} className={styles.sideBarMainContainer}>
         {renderSideBar()}
         {renderMainPage()}
       </div>

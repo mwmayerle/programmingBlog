@@ -8,7 +8,7 @@ const Section = props => {
 
   return (
     props.editingPost ? (
-      <div key={props.id}>
+      <div key={`${props.id}-editing`}>
         <div 
           className={styles.formRow}
           id={props.id}
