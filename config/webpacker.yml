@@ -91,10 +91,7 @@ production:
   compile: false
 
   # Extract and emit a css file
-  # switched true to false because of:
-  # https://stackoverflow.com/questions/59161189/rails-webpacker-4-2-cant-find-application-in-app-public-packs-manifest-json-h
-  # was originally true
-  extract_css: false
+  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true
