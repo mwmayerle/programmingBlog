@@ -72,7 +72,7 @@ export const rubyConfig = {
   def: /^\s*def\s/,
   hashKey: /^([^{('",]\w+|\d+):|^:(\w+|\d+)/,
   keywordsRedItalics: /^\s*(self)/,
-  keywordsBlue: /^\s*(loop|new|puts|p\s|private)/,
+  keywordsBlue: /^\s*(loop|new\b|puts|p\s|private)/,
   keywordsOrange: /^\s*(true|false|nil)/,
   keywordsPurple: /^\s*(if|elsif|else|module|in|do|break|case|class|next|redo|rescue|retry|return|super|then|unless|undef|defined\?|for|ensure|BEGIN|begin|END|end|class|while|when|until|yield|alias)\b/,
   keywordsTeal: /^\s*(and|or|not)/,
