@@ -1,6 +1,10 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
+  ### temp fix below ###
+  # https://stackoverflow.com/questions/59161189/rails-webpacker-4-2-cant-find-application-in-app-public-packs-manifest-json-h
+  extract_css: false
+  ### temp fix above ###
   source_path: app/javascript
   source_entry_path: packs
   public_root_path: public
