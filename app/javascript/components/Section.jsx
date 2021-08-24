@@ -75,7 +75,7 @@ const Section = props => {
             data-type={props.type}
             data-position={props.position}
             onChange={(event) => props.handleSectionChange(event, 'body')}
-            rows='10'
+            rows='16'
             value={props.body}
           >
           </textarea>                
