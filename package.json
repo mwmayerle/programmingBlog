@@ -1,25 +1,22 @@
 {
-  "name": "programmingBlog",
+  "name": "programming-blog",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.3.0",
-    "babel-loader": "^8.2.2",
+    "@rails/webpacker": "5.4.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react_ujs": "^2.6.1"
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@babel/preset-react": "^7.14.5",
-    "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0"
   }
 }
