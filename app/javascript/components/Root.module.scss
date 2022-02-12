@@ -4,6 +4,7 @@
   justify-content: center;
 
   font-size: 24px;
+  height: 40px;
   width: 320px;
 
   background-color: #142026;
@@ -14,20 +15,9 @@
   margin-left: 1em;
 }
 
-.loginForm {
-  display: inline-flex;
-  margin-left: 0.66em;
-  margin-right: 0.66em;
-  margin-top: 0.5em;
-  button, label {
-    
-    margin-left: 0.66em;
-    margin-right: 0.66em;
-  }
-}
-
 .navbar {
   display: flex;
+  align-items: center;
   margin: 0px;
   padding: 0px;
   cursor: pointer;

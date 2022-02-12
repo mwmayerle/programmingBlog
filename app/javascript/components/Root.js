@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { API } from '../utilities/api.js';
+import LoginForm from './LoginForm';
 import MainPage from './MainPage';
 import NavBarTopic from './NavBarTopic';
 import styles from './Root.module.scss';
@@ -89,13 +90,6 @@ const Root = (props) => {
     setSelectedPost({
       ...selectedPost,
       [event.target.id]: parseInt(event.target.value)
-    })
-  }
-
-  const handleLogInChange = (event) => {
-    setLoginData({
-      ...loginData,
-      [event.target.id]: event.target.value
     })
   }
 
@@ -510,8 +504,7 @@ const Root = (props) => {
             <span className={styles.teal}>();</span>
           </i>
         </div>
-        {navBarTopicData && (
-          // the iterator 'topic' looks like [[0, 'Rails'], [1, 'sql'],...]
+        {navBarTopicData && // the iterator 'topic' looks like [[0, 'Rails'], [1, 'sql'],...]
           navBarTopicData.map((topic) => 
             <NavBarTopic
               getTopicData={getTopicData}
@@ -520,7 +513,7 @@ const Root = (props) => {
               title={topic[1]}
             />
           )
-        )}
+        }
         {loggedIn ? (
           <li className={styles.noDot}>
             <button onClick={() => {
@@ -538,35 +531,12 @@ const Root = (props) => {
           </li>
         )}
         {showForm && (
-          <form className={styles.loginForm}>
-            <label htmlFor='email'>Email:</label>
-            <input
-              id='email'
-              type='email'
-              name='email'
-              onChange={event => handleLogInChange(event) }
-            >
-            </input>
-            <label htmlFor='password'>Password:</label>
-            <input 
-              id='password'
-              type='password'
-              name='password'
-              onChange={event => handleLogInChange(event) }
-            >
-            </input>
-            <button onClick={(event) => {
-              event.preventDefault()
-              event.stopPropagation()
-              API.login(loginData).then((response) => {
-                setLoggedIn(response.loggedIn)
-                setLoginData( { email: null, password: null } )
-                setShowForm(false)
-              })
-            }}>
-              Login
-            </button>
-          </form>
+          <LoginForm
+            loginData={loginData}
+            setLoggedIn={setLoggedIn}
+            setLoginData={setLoginData}
+            setShowForm={setShowForm}
+          />
         )}
       </ul>
     )
