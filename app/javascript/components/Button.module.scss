@@ -1,0 +1,19 @@
+.standard {
+  background-color: crimson;
+  border:none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 24px;
+  outline: inherit;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.standard:hover {
+  background-color: #C31235;
+}

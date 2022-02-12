@@ -1,8 +1,9 @@
 
 import React from 'react'
+import Button from './Button'
+import RelatedPosts from './RelatedPosts';
 import Section from './Section'
 import styles from './MainPage.module.scss';
-import RelatedPosts from './RelatedPosts';
 
 const MainPage = props => {
   if (props.editingPost) {
@@ -88,32 +89,12 @@ const MainPage = props => {
             })
           )}
           <div className={styles.formButtons}>
-            <input 
-              className={styles.submitButton}
-              onClick={(event) => {
-                event.stopPropagation()
-                !!props.postId ? props.updatePost(props) : props.createPost(props)
-              }}
-              type="submit"
-              value={!!props.postId ? "Edit Post" : "Create Post"}
+            <Button
+              onClick={!!props.postId ? () => props.updatePost(props) : () => props.createPost(props)}
+              label={!!props.postId ? "Edit Post" : "Create Post"}
             />
-             <button
-              type="button" 
-              className={styles.submitButton}
-              onClick={props.addPostSection}
-            >
-              Add Section
-            </button>
-            <button
-              type="button" 
-              className={styles.submitButton}
-              onClick={(event) => {
-                event.stopPropagation()
-                props.stopEditingPost()
-              }}
-            >
-              Cancel
-            </button>
+            <Button onClick={props.addPostSection} label="Add Section" />
+            <Button onClick={props.stopEditingPost} label="Cancel"/>
           </div>
         </form>
       </div>
@@ -162,37 +143,25 @@ const MainPage = props => {
         {props.loggedIn && (
           <>
             <div className={styles.bottomButtons}>
-              <button
-                type="button" 
-                className={styles.bottomButton}
-                onClick={props.newPost}
-              >
-                New Post
-              </button>
+              <Button onClick={props.newPost} label="New Post" />
               {props.postId && (
                 <>
-                  <button
-                    type="button" 
-                    className={styles.bottomButton}
+                  <Button 
                     onClick={(event) => {
                       event.preventDefault()
                       props.startEditingPost()
                     }}
-                  >
-                    Edit Post
-                  </button>
-                  <button
-                    type="button" 
-                    className={styles.bottomButton}
+                    label="Edit Post"
+                  />
+                  <Button
                     onClick={(event) => {
                       event.preventDefault()
                       if (confirm('Are you sure you want to delete this post?')) {
                         props.deletePost(props.postId)
                       }
-                    }}
-                  >
-                    Delete Post
-                  </button>
+                    }} 
+                    label="Delete Post"
+                  />
                 </>
               )}
             </div>
