@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { API } from '../utilities/api.js';
+import Banner from './Banner'
 import HomePageEntry from './HomePageEntry';
 import LoginForm from './LoginForm';
 import MainPage from './MainPage';
 import NavBarTopic from './NavBarTopic';
 import styles from './Root.module.scss';
-import SideBar from './SideBar.jsx';
+import SideBar from './SideBar';
 
 
 const Root = (props) => {
@@ -357,60 +358,11 @@ const Root = (props) => {
     setCount(1)
   }
 
-  /* RENDERING COMPONENT FUNCTIONS */ 
-  const renderMainPage = () => {
-    if (selectedPost.selectedPostTitle || selectedTopic.selectedTopicId) {
-      return (
-        <MainPage
-          addPostSection={addPostSection}
-          createPost={createPost}
-          draggable={selectedPost.editingPost ? "true" : null}
-          editingPost={selectedPost.editingPost}
-          deletePost={deletePost}
-          getPostData={getPostData}
-          handleChange={handleChange}
-          handleSectionDelete={handleSectionDelete}
-          handleDragStart={handleDragStart}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
-          handleInputChange={handleInputChange}
-          handleSectionChange={handleSectionChange}
-          handleSectionDelete={handleSectionDelete}
-          loggedIn={loggedIn}
-          navBarTopicData={navBarTopicData}
-          newPost={newPost}
-          relatedPostData={selectedPost.relatedPostData}
-          postId={selectedPost.selectedPostId}
-          postSections={selectedPost.selectedPostSections}
-          postTags={selectedPost.selectedPostTags}
-          postTitle={selectedPost.selectedPostTitle}
-          postTopicId={selectedPost.postTopicId}
-          startEditingPost={startEditingPost}
-          stopEditingPost={stopEditingPost}
-          updatePost={updatePost}
-          updateSectionPositions={updateSectionPositions}
-        />
-      )
-    } else {
-      return <HomePageEntry />
-    }
-  }
-
-  const renderNavBar = () => {
-    return (
+  return (
+    <div className={styles.rootContainer}>
       <ul className={styles.navbar}>
-        <div 
-          className={styles.banner}
-          // Reset almost everything and go to the homepage
-          onClick={() => wipePostData() }
-          >
-          <i>
-            <span className={styles.red}>this</span>
-            <span className={styles.teal}>.</span>
-            <span className={styles.blue}>killMe</span>
-            <span className={styles.teal}>();</span>
-          </i>
-        </div>
+        <Banner wipePostData={wipePostData} />
+
         {navBarTopicData && // the iterator 'topic' looks like [[0, 'Rails'], [1, 'sql'],...]
           navBarTopicData.map((topic) => 
             <NavBarTopic
@@ -446,19 +398,46 @@ const Root = (props) => {
           />
         )}
       </ul>
-    )
-  }
 
-  return (
-    <div className={styles.rootContainer}>
-      {renderNavBar()}
       <div key={`${count}-sidebar`} className={styles.sideBarMainContainer}>
         <SideBar
           getPostData={getPostData}
           posts={selectedTopic.selectedTopicPosts}
           title={selectedTopic.selectedTopicTitle}
         />
-        {renderMainPage()}
+        {(selectedPost.selectedPostTitle || selectedTopic.selectedTopicId) ? (
+          <MainPage
+            addPostSection={addPostSection}
+            createPost={createPost}
+            draggable={selectedPost.editingPost ? "true" : null}
+            editingPost={selectedPost.editingPost}
+            deletePost={deletePost}
+            getPostData={getPostData}
+            handleChange={handleChange}
+            handleSectionDelete={handleSectionDelete}
+            handleDragStart={handleDragStart}
+            handleDragOver={handleDragOver}
+            handleDrop={handleDrop}
+            handleInputChange={handleInputChange}
+            handleSectionChange={handleSectionChange}
+            handleSectionDelete={handleSectionDelete}
+            loggedIn={loggedIn}
+            navBarTopicData={navBarTopicData}
+            newPost={newPost}
+            relatedPostData={selectedPost.relatedPostData}
+            postId={selectedPost.selectedPostId}
+            postSections={selectedPost.selectedPostSections}
+            postTags={selectedPost.selectedPostTags}
+            postTitle={selectedPost.selectedPostTitle}
+            postTopicId={selectedPost.postTopicId}
+            startEditingPost={startEditingPost}
+            stopEditingPost={stopEditingPost}
+            updatePost={updatePost}
+            updateSectionPositions={updateSectionPositions}
+          />
+        ) : (
+          <HomePageEntry />
+        )}
       </div>
     </div>
   )
