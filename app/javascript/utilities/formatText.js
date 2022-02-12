@@ -557,11 +557,14 @@ export const FormatText = {
           const restOfTheLineMatchData = this.inputText.match(/.+/)
           const oldInputText = this.inputText
           this.methodArgs = true
-          this.inputText = restOfTheLineMatchData[0]
-          this.rubyDriver()
-          this.methodArgs = false
-          this.inputText = oldInputText.replace(restOfTheLineMatchData, "")
+          if (restOfTheLineMatchData) {
+            this.inputText = restOfTheLineMatchData[0]
+            this.rubyDriver()
+            this.methodArgs = false
+            this.inputText = oldInputText.replace(restOfTheLineMatchData, "")
+          }
         }
+
       } else if (this.regexConfig.capitalized.test(this.inputText)) {
         this.insertStyledMatch('sun', this.inputText.match(this.regexConfig.capitalized))
 
