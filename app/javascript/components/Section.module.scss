@@ -120,6 +120,14 @@ textarea {
   padding: 8px;
   resize: none;
 }
+
+.postTopicId {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 0.33em;
+  text-transform: capitalize;
+}
+
 // https://github.com/trongthanh/vscode-boxythemekit/blob/master/themes/Boxy%20Ocean%20dimmed.json
 .ruby, .javascript, .postgresql, .jsx, .html, .css {
   textarea {

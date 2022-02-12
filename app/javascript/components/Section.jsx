@@ -26,6 +26,7 @@ const Section = props => {
               Section Type:
             </label>
             <select
+              className={styles.postTopicId}
               defaultValue={props.type}
               id={props.id}
               onChange={(event) => props.handleSectionChange(event, 'section_type')}

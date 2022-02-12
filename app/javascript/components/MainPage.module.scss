@@ -18,6 +18,10 @@
   }
 }
 
+.bottomButton:hover {
+  background-color: #C31235;
+}
+
 .column {
   display: flex;
   flex-direction: column;
@@ -63,10 +67,21 @@
 }
 
 .mainContainer {
+  input {
+    border: 1px solid #303030;
+    border-radius: 5px;
+  }
   margin-left: 40px;
   margin-top: 10px;
   min-height: 100vh;
   width: 1200px;
+}
+
+.postTopicId {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 0.33em;
+  text-transform: capitalize;
 }
 
 .relatedPostLink {
@@ -100,6 +115,11 @@
   padding-left: 18px;
   padding-right: 18px;
 }
+
+.submitButton:hover {
+  background-color: #C31235;
+}
+
 
 .tag {
   background-color: crimson;
