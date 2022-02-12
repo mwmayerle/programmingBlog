@@ -1,0 +1,38 @@
+.sideBarContainer {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #eeeeee;
+  button {
+    margin: none;
+  }
+}
+
+.sideBarLink {
+  font-size: 13px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.sideBarLink:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+  font-size: 13px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-decoration: underline;
+}
+
+.sideBarTitle {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  p {
+    margin: 0.333em;
+  }
+}

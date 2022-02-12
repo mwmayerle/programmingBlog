@@ -5,6 +5,7 @@ import LoginForm from './LoginForm';
 import MainPage from './MainPage';
 import NavBarTopic from './NavBarTopic';
 import styles from './Root.module.scss';
+import SideBar from './SideBar.jsx';
 
 
 const Root = (props) => {
@@ -542,37 +543,15 @@ const Root = (props) => {
     )
   }
 
-  const renderSideBar = () => {
-    return (
-      <div className={styles.sideBarContainer}>
-        {selectedTopic.selectedTopicTitle && (
-          <div className={styles.sideBarTitle}>
-            <p>{selectedTopic.selectedTopicTitle}</p>
-          </div>
-        )}
-        {selectedTopic.selectedTopicPosts && (
-          // Make this a link generating component
-          selectedTopic.selectedTopicPosts.map((post, index) => {
-            return (
-              <button
-                className={styles.sideBarLink}
-                key={`${index}-sidebar`}
-                onClick={getPostData.bind(null, post.id)}
-              >
-                {post.title}
-              </button>
-            )
-          })
-        )}
-      </div>
-    )
-  }
-
   return (
     <div className={styles.rootContainer}>
       {renderNavBar()}
       <div key={`${count}-sidebar`} className={styles.sideBarMainContainer}>
-        {renderSideBar()}
+        <SideBar
+          getPostData={getPostData}
+          posts={selectedTopic.selectedTopicPosts}
+          title={selectedTopic.selectedTopicTitle}
+        />
         {renderMainPage()}
       </div>
     </div>
