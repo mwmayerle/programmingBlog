@@ -69,6 +69,7 @@ const Root = (props) => {
   const handleDragOver = event => event.preventDefault();
 
   const handleDragStart = (event) => {
+    event.dataTransfer.setData("data", event.target);
     setDragData({
       beingDraggedId: event.target.id,
       droppedPosition: null
@@ -165,10 +166,11 @@ const Root = (props) => {
       setCount(count + 1)
     })
   }
-  // Loads the navbar and its icons
-  const getNavBarData = () => {
-    API.get('/topics').then((topicData) => {
-      setNavBarTopicData(topicData)
+  // Loads the navbar and its icons. Also checks to see if someone is logged in and sets that
+  const getNavBarDataAndCheckLoggedIn = () => {
+    API.get('/topics').then((initialLoadData) => {
+      setLoggedIn(initialLoadData.loggedIn)
+      setNavBarTopicData(initialLoadData.topics)
     })
   }
   // loads the sidebar and the most recent post in the sidebar,
@@ -278,8 +280,8 @@ const Root = (props) => {
       setCount(count + 1)
     })
   }
-
-  useEffect(() => { getNavBarData() }, []) //loads navbar when page loads
+  // loads navbar when page loads and sees if someone is logged in
+  useEffect(() => { getNavBarDataAndCheckLoggedIn() }, [])
 
   useEffect(() => {
     if (dragData.droppedPosition) {

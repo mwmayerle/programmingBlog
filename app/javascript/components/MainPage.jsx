@@ -87,10 +87,10 @@ const MainPage = props => {
               return (
                 <div
                   className={styles.formPostSection}
-                  key={`${postSection.id}-${index}`}
+                  key={`postSectionDiv-${postSection.id}-${index}`}
                 >
                   <Section
-                    key={`${postSection.id}-${index}`}
+                    key={`editing-section-${postSection.id}-${index}`}
                     body={postSection.body}
                     id={postSection.id}
                     position={postSection.position}

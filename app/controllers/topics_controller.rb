@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    render json: Topic.pluck(:id, :title)
+    render json: { loggedIn: logged_in?, topics: Topic.pluck(:id, :title) }
   end
 
   def show
