@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { API } from '../utilities/api.js';
-import Banner from './Banner'
+import Banner from './Banner';
+import Button from './Button';
 import HomePageEntry from './HomePageEntry';
 import LoginForm from './LoginForm';
 import MainPage from './MainPage';
@@ -375,18 +376,24 @@ const Root = (props) => {
         }
         {loggedIn ? (
           <li className={styles.noDot}>
-            <button onClick={() => {
-              API.logout().then(() => {
-                setShowForm(false)
-                setLoggedIn(false)
-              })
-            }}>
-              Log Out
-            </button>
+            <Button 
+              className={styles.noDot}
+              onClick={() => {
+                API.logout().then(() => {
+                  setShowForm(false)
+                  setLoggedIn(false)
+                })
+              }}
+              label="Log Out"
+            />
           </li>
         ) : (
           <li className={styles.noDot}>
-            <button onClick={() => setShowForm(!showForm)}>Log In</button>
+            <Button 
+              className={styles.noDot}
+              onClick={() => setShowForm(!showForm)}
+              label="Log In"
+            />
           </li>
         )}
         {showForm && (
