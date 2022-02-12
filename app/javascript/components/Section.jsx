@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button';
 import styles from './Section.module.scss';
 import { FormatText } from '../utilities/formatText.js'
 
@@ -44,17 +45,17 @@ const Section = props => {
               className={styles.editSectionButtons}
               data-position={props.position}
             >
-              <button onClick={(event) => {
-                event.preventDefault()
-                setPreviewingSection(!previewingSection)
-              }}>
-                {previewingSection ? 'Stop Previewing' : 'Preview'}
-              </button>
-              <button onClick={() => {
-                props.handleSectionDelete(props.id, props.postId)
-              }}>
-                Delete
-              </button>
+              <Button 
+                  onClick={(event) => {
+                  event.preventDefault()
+                  setPreviewingSection(!previewingSection)
+                }}
+                label={previewingSection ? 'Stop Previewing' : 'Preview'}
+              />
+              <Button 
+                onClick={() => props.handleSectionDelete(props.id, props.postId)}
+                label="Delete"
+              />
             </div>
           </div>
 
