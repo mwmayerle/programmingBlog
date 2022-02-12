@@ -8,7 +8,7 @@ const HomePageEntry = () => {
       <h1>What is this thing I have found?</h1>
       <div>
         <p>
-        <i className={styles.codeEditorBackground}>
+        <i className={styles.killmeInText}>
           <span className={styles.red}>this</span><span className={styles.teal}>.</span><span className={styles.blue}>killMe</span><span className={styles.teal}>(); </span>
         </i>
           &nbsp; is my own personal blog/learning tool that I wrote to help me not be bad at my job and continue to learn. It summarizes various books/videos without citing them. 
