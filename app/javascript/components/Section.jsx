@@ -46,10 +46,7 @@ const Section = props => {
               data-position={props.position}
             >
               <Button 
-                  onClick={(event) => {
-                  event.preventDefault()
-                  setPreviewingSection(!previewingSection)
-                }}
+                onClick={() => setPreviewingSection(!previewingSection)}
                 label={previewingSection ? 'Stop Previewing' : 'Preview'}
               />
               <Button 
@@ -60,11 +57,7 @@ const Section = props => {
           </div>
 
           {previewingSection && (
-            <div className={styles[`${props.type}PreviewBox`]}>
-              <>
-                {formattedText}
-              </>        
-            </div>
+            <div className={styles[`${props.type}PreviewBox`]}>{formattedText}</div>
           )}
 
           <div 

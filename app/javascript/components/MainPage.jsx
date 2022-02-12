@@ -43,7 +43,7 @@ const MainPage = props => {
           <label>
             Topic:
           </label>
-            <select
+          <select
               id="postTopicId"
               className={styles.postTopicId}
               defaultValue={props.postTopicId}
@@ -147,15 +147,11 @@ const MainPage = props => {
               {props.postId && (
                 <>
                   <Button 
-                    onClick={(event) => {
-                      event.preventDefault()
-                      props.startEditingPost()
-                    }}
+                    onClick={props.startEditingPost}
                     label="Edit Post"
                   />
                   <Button
-                    onClick={(event) => {
-                      event.preventDefault()
+                    onClick={() => {
                       if (confirm('Are you sure you want to delete this post?')) {
                         props.deletePost(props.postId)
                       }
