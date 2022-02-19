@@ -9,7 +9,8 @@ export const cssConfig = {
   selectorBeginning: /^\s*(\.|#|@)/,
   redWord: /^\s*(&|\w)+/,
   untilSemicolon: /^[^:](\s*\w*|\-|!|\d)+[^;]/,
-  withSemicolon: /^[^:](\s*(\d|\-|!|%|\w)*;)/,
+  withSemicolon: /^[^:].*(\d|\-|!|%|\w);/
+  // withSemicolon: /^[^:](\s*(\d|\-|!|%|\w);)*/,
 }
 
 export const javascriptConfig = {

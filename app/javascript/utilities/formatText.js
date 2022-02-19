@@ -57,19 +57,20 @@ export const FormatText = {
       // pound sign isn't in specialCharacters b/c it's shared and used for Ruby comments
       } else if (this.regexConfig.pound.test(this.inputText)) {
         this.insertStyledMatch('white', this.inputText.match(this.regexConfig.pound))
-      
+        
       } else if (this.regexConfig.insideBrackets.test(this.inputText)) {
         const insideBracketsMatchData = this.inputText.match(this.regexConfig.insideBrackets)
         //isolate everything before colon and insert it
         const beforeColonText = insideBracketsMatchData[0].match(this.regexConfig.beforeColon)
         this.insertStyledMatch('sun', beforeColonText)
       } else if (this.regexConfig.withSemicolon.test(this.inputText)) {
-        // for whatever; that comes after the : inside brackets. The test function above includes the semicolon
-        // the one below does not
+        // for whatever; that comes after the : inside brackets. The regex in the .test()
+        // function above includes the semicolon the one below does not
         this.insertStyledMatch('orange', this.inputText.match(this.regexConfig.untilSemicolon))
 
       } else if (this.regexConfig.wordOrSpaces.test(this.inputText)) {
         this.insertStyledMatch('white', this.inputText.match(this.regexConfig.wordOrSpaces))
+
       } else {
         this.formattedInputText.push(<span className={styles.white}>{this.inputText}</span>)
       }
