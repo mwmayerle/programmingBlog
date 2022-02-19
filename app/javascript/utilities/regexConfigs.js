@@ -44,7 +44,8 @@ export const javascriptConfig = {
   reactComponentClosing: /^\s*<\/([A-Z]\s*|.*|\n*)>/,
   reactFragmentOpening: /^\s*<>/,
   reactFragmentClosing: /^\s*<\/>/,
-  withinJsxTags: /^\s*>(\s*|\w+)*</,
+  // withinJsxTags: /^\s*>(\s*|\w+)*</, <-- old one is security risk b/c inefficient
+  withinJsxTags: /^\s*>(\s|\w)*</,
   variableDeclaration: /^(const\s|let\s|var\s)\w+/,
 }
 
