@@ -5,6 +5,6 @@ class Topic < ApplicationRecord
   has_many :posts
 
   enum title: [
-    "ruby", "javascript", "postgresql", "react-redux", "html-css", "design-patterns", "algorithms-math", "miscellaneous"
+    "ruby", "javascript", "postgresql", "react-redux", "html-css", "design-patterns", "algorithms", "miscellaneous"
   ]
 end

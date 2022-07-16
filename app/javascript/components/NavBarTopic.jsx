@@ -14,7 +14,7 @@ import styles from './NavBarTopic.module.scss';
 const NavBarTopic = props => {
   const getIcon = () => {
     switch(props.title) {
-      case 'algorithms-math':
+      case 'algorithms':
         return AlgorithmsIcon;
       case 'ruby':
         return RubyIcon;
@@ -35,8 +35,8 @@ const NavBarTopic = props => {
 
   const getTitle = () => {
     switch(props.title) {
-      case 'algorithms-math':
-        return 'Algorithms/Math';
+      case 'algorithms':
+        return 'Algorithms';
       case 'ruby':
         return 'Ruby';
       case 'javascript':
